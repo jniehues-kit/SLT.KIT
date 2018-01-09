@@ -1,37 +1,41 @@
 #!/bin/bash
 
 
-mkdir -p /tmp/defaultPreprocessor/tok/train
-mkdir -p /tmp/defaultPreprocessor/tok/valid
-mkdir -p /tmp/defaultPreprocessor/sc/train
-mkdir -p /tmp/defaultPreprocessor/sc/valid
-mkdir -p /data/defaultPreprocessor/model
+input=$1
+name=$2
 
+mkdir -p /tmp/${name}/tok/train
+mkdir -p /tmp/${name}/tok/valid
+mkdir -p /tmp/${name}/sc/train
+mkdir -p /tmp/${name}/sc/valid
+mkdir -p /model/${name}
+mkdir -p /data/${name}/train
+mkdir -p /data/${name}/valid
 
 ##TOKENIZE
 
-echo "" > /tmp/defaultPreprocessor/corpus.tok.s
-for f in /data/parallel/*\.s
+echo "" > /tmp/${name}/corpus.tok.s
+for f in /data/${input}/parallel/*\.s
 do
-cat $f | perl /opt/mosesdecoder/scripts/tokenizer/tokenizer.perl -l ${sl} > /tmp/defaultPreprocessor/tok/train/${f##*/}
-cat /tmp/defaultPreprocessor/tok/train/${f##*/} >> /tmp/defaultPreprocessor/corpus.tok.s
+cat $f | perl /opt/mosesdecoder/scripts/tokenizer/tokenizer.perl -l ${sl} > /tmp/${name}/tok/train/${f##*/}
+cat /tmp/${name}/tok/train/${f##*/} >> /tmp/${name}/corpus.tok.s
 done
-for f in /data/valid/*\.s
+for f in /data/${input}/valid/*\.s
 do
-cat $f | perl /opt/mosesdecoder/scripts/tokenizer/tokenizer.perl -l ${sl} > /tmp/defaultPreprocessor/tok/valid/${f##*/}
+cat $f | perl /opt/mosesdecoder/scripts/tokenizer/tokenizer.perl -l ${sl} > /tmp/${name}/tok/valid/${f##*/}
 done
 
 
 
-echo "" > /tmp/defaultPreprocessor/corpus.tok.t
-for f in /data/parallel/*\.t
+echo "" > /tmp/${name}/corpus.tok.t
+for f in /data/${input}/parallel/*\.t
 do
-cat $f | perl /opt/mosesdecoder/scripts/tokenizer/tokenizer.perl -l ${sl} > /tmp/defaultPreprocessor/tok/train/${f##*/}
-cat /tmp/defaultPreprocessor/tok/train/${f##*/} >> /tmp/defaultPreprocessor/corpus.tok.t
+cat $f | perl /opt/mosesdecoder/scripts/tokenizer/tokenizer.perl -l ${tl} > /tmp/${name}/tok/train/${f##*/}
+cat /tmp/${name}/tok/train/${f##*/} >> /tmp/${name}/corpus.tok.t
 done
-for f in /data/valid/*\.t
+for f in /data/${input}/valid/*\.t
 do
-cat $f | perl /opt/mosesdecoder/scripts/tokenizer/tokenizer.perl -l ${sl} > /tmp/defaultPreprocessor/tok/valid/${f##*/}
+cat $f | perl /opt/mosesdecoder/scripts/tokenizer/tokenizer.perl -l ${tl} > /tmp/${name}/tok/valid/${f##*/}
 done
 
 
@@ -39,54 +43,60 @@ done
 ##SMARTCASE
 
 
-/opt/mosesdecoder/scripts/recaser/train-truecaser.perl --model /data/defaultPreprocessor/model/truecase-model.s --corpus /tmp/defaultPreprocessor/corpus.tok.s
-/opt/mosesdecoder/scripts/recaser/train-truecaser.perl --model /data/defaultPreprocessor/model/truecase-model.t --corpus /tmp/defaultPreprocessor/corpus.tok.t
+/opt/mosesdecoder/scripts/recaser/train-truecaser.perl --model /model/${name}/truecase-model.s --corpus /tmp/${name}/corpus.tok.s
+/opt/mosesdecoder/scripts/recaser/train-truecaser.perl --model /model/${name}/truecase-model.t --corpus /tmp/${name}/corpus.tok.t
 
-for set in dev train
+for set in valid train
 do
-for f in /tmp/defaultPreprocessor/tok/$set/*\.s
+for f in /tmp/${name}/tok/$set/*\.s
 do
-cat $f | /opt/mosesdecoder/scripts/recaser/truecase.perl --model /tmp/defaultPreprocessor/corpus.tok.s > /tmp/defaultPreprocessor/sc/$set/${f##*/}
-done
-done
-
-for set in dev train
-do
-for f in /tmp/defaultPreprocessor/tok/$set/*\.t
-do
-cat $f | /opt/mosesdecoder/scripts/recaser/truecase.perl --model /tmp/defaultPreprocessor/corpus.tok.t > /tmp/defaultPreprocessor/sc/$set/${f##*/}
+cat $f | /opt/mosesdecoder/scripts/recaser/truecase.perl --model /model/${name}/truecase-model.s > /tmp/${name}/sc/$set/${f##*/}
 done
 done
 
-echo "" > /tmp/defaultPreprocessor/corpus.sc.s
-for f in /tmp/defaultPreprocessor/sc/train/*\.s
+for set in valid train
 do
-cat $f >> /tmp/defaultPreprocessor/corpus.sc.s
+for f in /tmp/${name}/tok/$set/*\.t
+do
+cat $f | /opt/mosesdecoder/scripts/recaser/truecase.perl --model /model/${name}/truecase-model.t > /tmp/${name}/sc/$set/${f##*/}
+done
 done
 
-echo "" > /tmp/defaultPreprocessor/corpus.sc.t
-for f in /tmp/defaultPreprocessor/sc/train/*\.t
+echo "" > /tmp/${name}/corpus.sc.s
+for f in /tmp/${name}/sc/train/*\.s
 do
-cat $f >> /tmp/defaultPreprocessor/corpus.sc.t
+cat $f >> /tmp/${name}/corpus.sc.s
+done
+
+echo "" > /tmp/${name}/corpus.sc.t
+for f in /tmp/${name}/sc/train/*\.t
+do
+cat $f >> /tmp/${name}/corpus.sc.t
 done
 
 ##BPE
 
 
-/opt/subword-nmt/learn_joint_bpe_and_vocab.py --input /tmp/defaultPreprocessor/corpus.sc.s /tmp/defaultPreprocessor/corpus.sc.t -s 40000 -o /data/defaultPreprocessor/model/codec --write-vocabulary /data/defaultPreprocessor/model/voc.s /data/defaultPreprocessor/model/voc.t
+/opt/subword-nmt/learn_joint_bpe_and_vocab.py --input /tmp/${name}/corpus.sc.s /tmp/${name}/corpus.sc.t -s 40000 -o /model/${name}/codec --write-vocabulary /model/${name}/voc.s /model/${name}/voc.t
 
 
-for set in dev train
+for set in valid train
 do
-for f in /tmp/defaultPreprocessor/tok/$set/*\.s
+for f in /tmp/${name}/tok/$set/*\.s
 do
-/opt/subword-nmt/apply_bpe.py -c /data/defaultPreprocessor/model/codec --vocabulary /data/defaultPreprocessor/model/voc.s --vocabulary-threshold 50 < $f > /data/defaultPreprocessor/$set/${f##*/}
+echo $f
+/opt/subword-nmt/apply_bpe.py -c /model/${name}/codec --vocabulary /model/${name}/voc.s --vocabulary-threshold 50 < $f > /data/${name}/$set/${f##*/}
+done
 done
 
-for set in dev train
+for set in valid train
 do
-for f in /tmp/defaultPreprocessor/tok/$set/*\.t
+for f in /tmp/${name}/tok/$set/*\.t
 do
-/opt/subword-nmt/apply_bpe.py -c /data/defaultPreprocessor/model/codec --vocabulary /data/defaultPreprocessor/model/voc.t --vocabulary-threshold 50 < $f > /data/defaultPreprocessor/$set/${f##*/}
+echo $f
+/opt/subword-nmt/apply_bpe.py -c /model/${name}/codec --vocabulary /model/${name}/voc.t --vocabulary-threshold 50 < $f > /data/${name}/$set/${f##*/}
+done
 done
 
+
+rm -r /tmp/${name}/

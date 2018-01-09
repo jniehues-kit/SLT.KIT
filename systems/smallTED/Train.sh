@@ -5,5 +5,7 @@
 
 
 #Preprocess Data
-/opt/SLT.KIT/scripts/defaultPreprocessor/Train.sh
+/opt/SLT.KIT/scripts/defaultPreprocessor/Train.sh orig prepro
+
+
 
