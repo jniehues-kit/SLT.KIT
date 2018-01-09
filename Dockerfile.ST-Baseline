@@ -1,0 +1,22 @@
+From nvidia/cuda
+
+#PyTorch
+RUN apt-get update && apt-get install -y python-pip python-dev build-essential libyaml-dev git wget
+RUN pip install --upgrade pip
+RUN pip install http://download.pytorch.org/whl/cu90/torch-0.3.0.post4-cp27-cp27mu-linux_x86_64.whl 
+RUN pip install torchvision
+RUN pip install -U numpy
+
+
+RUN cd /opt && \
+    git clone https://github.com/quanpn90/OpenNMT-py -b MultiLingual
+RUN cd /opt && \
+    git clone https://github.com/jniehues-kit/SLT.KIT.git
+
+RUN cd /opt && \
+    git clone https://github.com/moses-smt/mosesdecoder.git
+
+RUN cd /opt && \
+    git clone https://github.com/rsennrich/subword-nmt.git
+
+#docker run -ti --rm --runtime=nvidia -e NVIDIA_VISIBLE_DEVICES=2 nvidia/cuda
