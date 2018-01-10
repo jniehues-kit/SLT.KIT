@@ -82,7 +82,7 @@ done
 
 for set in valid train
 do
-for f in /tmp/${name}/tok/$set/*\.s
+for f in /tmp/${name}/sc/$set/*\.s
 do
 echo $f
 /opt/subword-nmt/apply_bpe.py -c /model/${name}/codec --vocabulary /model/${name}/voc.s --vocabulary-threshold 50 < $f > /data/${name}/$set/${f##*/}
@@ -91,7 +91,7 @@ done
 
 for set in valid train
 do
-for f in /tmp/${name}/tok/$set/*\.t
+for f in /tmp/${name}/sc/$set/*\.t
 do
 echo $f
 /opt/subword-nmt/apply_bpe.py -c /model/${name}/codec --vocabulary /model/${name}/voc.t --vocabulary-threshold 50 < $f > /data/${name}/$set/${f##*/}
