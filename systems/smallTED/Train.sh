@@ -8,4 +8,12 @@
 /opt/SLT.KIT/scripts/defaultPreprocessor/Train.sh orig prepro
 
 
+#Train NMT
+/opt/SLT.KIT/scripts/openNMT-py/Train.sh prepro mt
 
+
+#Preprocess for Puncutation
+/SLT.KIT/scripts/monoTranslationData/Train.sh prepro monoTransPrepro
+
+#monTranslationSystem
+/opt/SLT.KIT/scripts/openNMT-py/Train.sh monoTransPrepro monTrans
