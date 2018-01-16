@@ -5,7 +5,7 @@ input=$1
 name=$2
 
 mkdir -p /data/${name}
-mkdir -p /data/${name}
+mkdir -p /model/${name}
 
 for set in train valid
 do
@@ -28,10 +28,10 @@ do
     # remove double punctuation
     cat $f | sed -e "s/@@ //g" | sed -e "s/&apos;/'/g" -e 's/&#124;/|/g' -e "s/&amp;/&/g" -e 's/&lt;/>/g' -e 's/&gt;/>/g' -e 's/&quot;/"/g' -e 's/&#91;/[/g' -e 's/&#93;/]/g' | sed -e 's/\.\.\././g' | sed -e 's/ \.\s*/. /g' | sed -e 's/ \.\s*/ /g' | sed -e 's/ \,\s*\,/ , /g' | sed -e 's/ \,\s*/, /g' | sed -e 's/ ! ! / ! /g' | sed -e 's/ ! ! / ! /g' | sed -e 's/ ! ! / ! /g' | sed -e 's/\s*!\s*/! /g' | sed -e 's/\s*?/?/g' | sed -e 's/\"\s*\"/""/g' | sed -e 's/ "/"/g' > /tmp/${name}/pc/${set}/${f##*/}
     #randomly split data
-    perl /SLT.KIT/scripts/monoTranslationData/RandCat_long.pl /tmp/${name}/pc/${set}/${f##*/} | sed -e 's/\s*"/"/g' > /tmp/${name}/randCut/${set}/${f##*/}
+    perl /opt/SLT.KIT/scripts/monoTranslationData/RandCat_long.pl /tmp/${name}/pc/${set}/${f##*/} | sed -e 's/\s*"/"/g' > /tmp/${name}/randCut/${set}/${f##*/}
     #genereate Target Labels
     filename=${f##*/}
-    perl /SLT.KIT/scripts/monoTranslationData/generateUL.pl /tmp/${name}/randCut/${set}/${f##*/} > /data/${name}/${set}/${filename%.*}.t
+    perl /opt/SLT.KIT/scripts/monoTranslationData/generateUL.pl /tmp/${name}/randCut/${set}/${f##*/} > /data/${name}/${set}/${filename%.*}.t
     #remove punctuation and lowercase
     cat /tmp/${name}/randCut/${set}/${f##*/} |  perl -nle 'print lc' | sed -e 's/\,//g' | sed -e 's/\.//g' | sed -e 's/?//g' | sed -e 's/\!//g' | sed -e 's/\"//g' | sed -e 's/^\s*//g' | sed -e 's/\s\s*/ /g' > /tmp/${name}/np/${set}/${f##*/}
 done

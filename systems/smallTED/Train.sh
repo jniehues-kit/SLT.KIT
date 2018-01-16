@@ -13,7 +13,7 @@
 
 
 #Preprocess for Puncutation
-/SLT.KIT/scripts/monoTranslationData/Train.sh prepro monoTransPrepro
+/opt/SLT.KIT/scripts/monoTranslationData/Train.sh prepro monoTransPrepro
 
 #monTranslationSystem
 /opt/SLT.KIT/scripts/openNMT-py/Train.sh monoTransPrepro monTrans
