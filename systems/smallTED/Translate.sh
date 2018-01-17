@@ -11,17 +11,8 @@ if [ ! -e /data/orig/eval/$set ]; then
 
 fi
 
+#Add puncuation
 /opt/SLT.KIT/scripts/monoTranslationData/Translate.sh $set orig monoTransPrepro monTrans
 
-#Preprocess Data
-#/opt/SLT.KIT/scripts/defaultPreprocessor/Train.sh orig prepro
-
-
-#Train NMT
-#/opt/SLT.KIT/scripts/openNMT-py/Train.sh prepro mt
-
-
-#Preprocess for Puncutation
-
-#monTranslationSystem
-#/opt/SLT.KIT/scripts/openNMT-py/Train.sh monoTransPrepro monTrans
+#Translate
+/opt/SLT.KIT/scripts/openNMT-py/Translate.sh $set monoTransPrepro mt
