@@ -48,13 +48,13 @@ python -u /opt/OpenNMT-py/train.py  -data /tmp/${name}/train.train.pt \
        -learning_rate 0.001 \
        -gpus 0
 
-for f in /tmp/mt/model_ppl_*.pt
+for f in /tmp/${name}/model_ppl_*.pt
 do
     echo $f >> /tmp/${name}/list ;
 done
 
 
-best=`awk '{ppl=$0;gsub(/.tmp.mt.model_ppl_/,"",ppl);gsub(/_e[0-9]*.pt/,"",ppl); if(NR==1 || 1.0*ppl < 1.0*min){min=ppl;f=$0}}END{print f}' /tmp/${name}/list`
+best=`awk '{ppl=$0;gsub(/.tmp.*.model_ppl_/,"",ppl);gsub(/_e[0-9]*.pt/,"",ppl); if(NR==1 || 1.0*ppl < 1.0*min){min=ppl;f=$0}}END{print f}' /tmp/${name}/list`
 
 python -u /opt/OpenNMT-py/train.py  -data /tmp/${name}/train.train.pt \
        -save_model /tmp/${name}/cont.model \
@@ -71,13 +71,13 @@ python -u /opt/OpenNMT-py/train.py  -data /tmp/${name}/train.train.pt \
        -gpus 0
        
 
-for f in /tmp/mt/cont.model_ppl_*.pt
+for f in /tmp/${name}/cont.model_ppl_*.pt
 do
     echo $f >> /tmp/${name}/list.cont ;
 done
 
 
-best=`awk '{ppl=$0;gsub(/.tmp.mt.cont.model_ppl_/,"",ppl);gsub(/_e[0-9]*.pt/,"",ppl); if(NR==1 || 1.0*ppl < 1.0*min){min=ppl;f=$0}}END{print f}' /tmp/${name}/list.cont`
+best=`awk '{ppl=$0;gsub(/.tmp..*.cont.model_ppl_/,"",ppl);gsub(/_e[0-9]*.pt/,"",ppl); if(NR==1 || 1.0*ppl < 1.0*min){min=ppl;f=$0}}END{print f}' /tmp/${name}/list.cont`
 echo $best
 
 cp $best /model/$name/model.pt
