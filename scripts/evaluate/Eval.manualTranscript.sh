@@ -18,7 +18,7 @@ grep "<seg id" $reference | sed -e "s/<[^>]*>//g" > /tmp/eval.manual/$set.refere
 sed -e "s/@@ //g" /data/$output/eval/manualTranscript.$set.t | sed -e "s/@@$//g" | sed -e "s/&apos;/'/g" -e 's/&#124;/|/g' -e "s/&amp;/&/g" -e 's/&lt;/>/g' -e 's/&gt;/>/g' -e 's/&quot;/"/g' -e 's/&#91;/[/g' -e 's/&#93;/]/g' | perl -nle 'print ucfirst' > /tmp/eval.manual/$set.hyp
 
 sed -e "s/^\s*$/_EMPTY_/g" /tmp/eval.manual/$set.hyp > /tmp/eval.manual/$set.no-empty.hyp
-cat /tmp/eval.manual/$set.hyp | perl /opt/SLT.KIT/scripts/evaluate/wrap-xml.perl de /data/orig/eval/dev2010/IWSLT.dev2010/IWSLT.TED.dev2010.en-de.en.xml $systemName > /tmp/eval.manual/$set.xml
+cat /tmp/eval.manual/$set.hyp | perl /opt/SLT.KIT/scripts/evaluate/wrap-xml.perl $tl /data/orig/eval/$set/IWSLT.$set/IWSLT.TED.$set.$sl-$tl.$sl.xml $systemName > /tmp/eval.manual/$set.xml
 
 
 

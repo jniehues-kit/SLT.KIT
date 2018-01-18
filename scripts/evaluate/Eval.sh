@@ -24,8 +24,8 @@ sed -e "s/@@ //g" /data/$output/eval/$set.t | sed -e "s/@@$//g" | sed -e "s/&apo
 sed -e "/<[^>]*>/d" /tmp/eval/$set.sgm > /tmp/eval/$set.hyp
 sed -e "/<[^>]*>/d" /tmp/eval/$set.no-case.sgm > /tmp/eval/$set.no-case.hyp
 sed -e "s/^\s*$/_EMPTY_/g" /tmp/eval/$set.hyp > /tmp/eval/$set.no-empty.hyp
-cat /tmp/eval/$set.hyp | perl /opt/SLT.KIT/scripts/evaluate/wrap-xml.perl de /data/orig/eval/dev2010/IWSLT.dev2010/IWSLT.TED.dev2010.en-de.en.xml $systemName > /tmp/eval/$set.xml
-cat /tmp/eval/$set.no-case.hyp | perl /opt/SLT.KIT/scripts/evaluate/wrap-xml.perl de /data/orig/eval/dev2010/IWSLT.dev2010/IWSLT.TED.dev2010.en-de.en.xml $systemName > /tmp/eval/$set.no-case.xml
+cat /tmp/eval/$set.hyp | perl /opt/SLT.KIT/scripts/evaluate/wrap-xml.perl $tl /data/orig/eval/$set/IWSLT.$set/IWSLT.TED.$set.$sl-$tl.$sl.xml $systemName > /tmp/eval/$set.xml
+cat /tmp/eval/$set.no-case.hyp | perl /opt/SLT.KIT/scripts/evaluate/wrap-xml.perl $tl /data/orig/eval/$set/IWSLT.$set/IWSLT.TED.$set.$sl-$tl.$sl.xml $systemName > /tmp/eval/$set.no-case.xml
 
 
 /opt/mosesdecoder/scripts/generic/mteval-v14.pl -c -s $source -r $reference -t /tmp/eval/$set.xml > /results/$systemName/$set/BLEU.case-sensitive
