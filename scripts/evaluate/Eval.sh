@@ -35,7 +35,7 @@ java -Dfile.encoding=UTF8 -jar /opt/tercom-0.7.25/tercom.7.25.jar -N -s -r $refe
 java -Dfile.encoding=UTF8 -jar /opt/tercom-0.7.25/tercom.7.25.jar -N -r $reference -h /tmp/eval/$set.no-case.xml > /results/$systemName/$set/TER.case-insensitive
 
 /opt/beer_2.0/beer -s /tmp/eval/$set.hyp -r /tmp/eval/$set.reference > /results/$systemName/$set/BEER.case-sensitive
-/opt/CharacTER/CharacTER.py -r /tmp/eval/$set.reference -o /tmp/eval/$set.no-empty.hyp > /results/$systemName/$set/CharacTER.case-senstive
+/opt/CharacTER/CharacTER.py -r /tmp/eval/$set.reference -o /tmp/eval/$set.no-empty.hyp > /results/$systemName/$set/CharacTER.case-sensitive
 
 
 BLEU=`grep BLEU /results/$systemName/$set/BLEU.case-sensitive | head -n 1 | awk '{print $8*100}'`
@@ -43,7 +43,7 @@ ciBLEU=`grep BLEU /results/$systemName/$set/BLEU.case-insensitive | head -n 1 | 
 TER=`grep TER /results/$systemName/$set/TER.case-sensitive | awk '{printf("%.2f\n",$3*100)}'`
 ciTER=`grep TER /results/$systemName/$set/TER.case-insensitive | awk '{printf("%.2f\n",$3*100)}'`
 beer=`awk '{printf("%.2f\n",$3*100)}' /results/$systemName/$set/BEER.case-sensitive`
-character=`awk '{printf("%.1f\n",$3*100)}' /results/$systemName/$set/BEER.case-sensitive`
+character=`awk '{printf("%.2f\n",$1*100)}' /results/$systemName/$set/CharacTER.case-sensitive`
 
 echo "Results for $systemName" > /results/$systemName/$set/Summary.md
 echo "=======================" >> /results/$systemName/$set/Summary.md

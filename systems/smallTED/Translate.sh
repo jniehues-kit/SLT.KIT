@@ -17,6 +17,19 @@ fi
 #Translate
 /opt/SLT.KIT/scripts/openNMT-py/Translate.sh $set monoTransPrepro mt
 
-
 #Eval
 /opt/SLT.KIT/scripts/evaluate/Eval.sh dev2010 mt
+
+#Prepro manual transcript
+/opt/SLT.KIT/scripts/defaultPreprocessor/Translate.sh $set prepro
+
+#Translate manual transcript
+/opt/SLT.KIT/scripts/openNMT-py/Translate.sh manualTranscript.$set prepro mt
+
+#Eval manual transcript
+/opt/SLT.KIT/scripts/evaluate/Eval.manualTranscript.sh dev2010 mt
+
+
+
+
+
