@@ -6,7 +6,7 @@ RUN pip install --upgrade pip
 RUN pip install http://download.pytorch.org/whl/cu90/torch-0.3.0.post4-cp27-cp27mu-linux_x86_64.whl 
 RUN pip install torchvision
 RUN pip install -U numpy
-
+RUN pip install nltk
 
 RUN cd /opt && \
     git clone https://github.com/quanpn90/OpenNMT-py -b MultiLingual
