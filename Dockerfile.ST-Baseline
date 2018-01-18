@@ -1,7 +1,7 @@
 From nvidia/cuda
 
 #PyTorch
-RUN apt-get update && apt-get install -y python-pip python-dev build-essential libyaml-dev git wget
+RUN apt-get update && apt-get install -y python-pip python-dev build-essential libyaml-dev git wget xml-twig-tools libsort-naturally-perl
 RUN pip install --upgrade pip
 RUN pip install http://download.pytorch.org/whl/cu90/torch-0.3.0.post4-cp27-cp27mu-linux_x86_64.whl 
 RUN pip install torchvision
@@ -18,5 +18,13 @@ RUN cd /opt && \
 
 RUN cd /opt && \
     git clone https://github.com/rsennrich/subword-nmt.git
+
+RUN cd /opt && \
+    wget http://www.cs.umd.edu/%7Esnover/tercom/tercom-0.7.25.tgz && \
+    tar xfvz tercom-0.7.25.tgz
+
+RUN cd /opt && wget https://raw.githubusercontent.com/stanojevic/beer/master/packaged/beer_2.0.tar.gz && tar xfvz beer_2.0.tar.gz
+RUN cd /opt && git clone https://github.com/rwth-i6/CharacTER.git
+
 
 #docker run -ti --rm --runtime=nvidia -e NVIDIA_VISIBLE_DEVICES=2 nvidia/cuda

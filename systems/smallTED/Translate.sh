@@ -16,3 +16,7 @@ fi
 
 #Translate
 /opt/SLT.KIT/scripts/openNMT-py/Translate.sh $set monoTransPrepro mt
+
+
+#Eval
+/opt/SLT.KIT/scripts/evaluate/Eval.sh dev2010 mt
