@@ -3,7 +3,10 @@
 input=$1
 name=$2
 
-
+size=512
+if [ $# -ne 2 ]; then
+    size=$3
+fi
 mkdir -p /tmp/${name}/
 mkdir -p /model/${name}/
 
@@ -38,8 +41,8 @@ python /opt/OpenNMT-py/preprocess.py \
 python -u /opt/OpenNMT-py/train.py  -data /tmp/${name}/train.train.pt \
        -save_model /tmp/${name}/model \
        -brnn \
-       -rnn_size 512 \
-       -word_vec_size 512 \
+       -rnn_size $size \
+       -word_vec_size $size \
        -batch_size 128 \
        -max_generator_batches 16 \
        -optim adam \
@@ -59,8 +62,8 @@ best=`awk '{ppl=$0;gsub(/.tmp.*.model_ppl_/,"",ppl);gsub(/_e[0-9]*.pt/,"",ppl); 
 python -u /opt/OpenNMT-py/train.py  -data /tmp/${name}/train.train.pt \
        -save_model /tmp/${name}/cont.model \
        -brnn \
-       -rnn_size 512 \
-       -word_vec_size 512 \
+       -rnn_size $size \
+       -word_vec_size $size \
        -batch_size 128 \
        -max_generator_batches 16 \
        -optim adam \
