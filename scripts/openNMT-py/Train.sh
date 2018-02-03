@@ -51,6 +51,8 @@ python -u /opt/OpenNMT-py/train.py  -data /tmp/${name}/train.train.pt \
        -learning_rate 0.001 \
        -gpus 0
 
+echo -n "" > /tmp/${name}/list
+
 for f in /tmp/${name}/model_ppl_*.pt
 do
     echo $f >> /tmp/${name}/list ;
@@ -73,6 +75,8 @@ python -u /opt/OpenNMT-py/train.py  -data /tmp/${name}/train.train.pt \
        -train_from_state_dict $best \
        -gpus 0
        
+
+echo -n "" > /tmp/${name}/list.cont
 
 for f in /tmp/${name}/cont.model_ppl_*.pt
 do

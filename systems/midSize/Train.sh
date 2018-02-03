@@ -11,10 +11,12 @@
 
 #Train NMT
 /opt/SLT.KIT/scripts/openNMT-py/Train.sh prepro mt 1024
+/opt/SLT.KIT/scripts/openNMT-py/Adapt.sh prepro mt TED 1024
 
 
 #Preprocess for Puncutation
 /opt/SLT.KIT/scripts/monoTranslationData/Train.sh prepro monoTransPrepro
 
 #monTranslationSystem
-/opt/SLT.KIT/scripts/openNMT-py/Train.sh monoTransPrepro monTrans
+/opt/SLT.KIT/scripts/openNMT-py/Train.sh monoTransPrepro monTrans 1024
+/opt/SLT.KIT/scripts/openNMT-py/Adapt.sh monoTransPrepro monTrans TED 1024
