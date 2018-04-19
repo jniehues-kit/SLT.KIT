@@ -26,5 +26,11 @@ RUN cd /opt && \
 RUN cd /opt && wget https://raw.githubusercontent.com/stanojevic/beer/master/packaged/beer_2.0.tar.gz && tar xfvz beer_2.0.tar.gz
 RUN cd /opt && git clone https://github.com/rwth-i6/CharacTER.git
 
+# XNMT
+RUN wget https://repo.continuum.io/archive/Anaconda3-5.1.0-Linux-x86_64.sh
+RUN chmod 755 Anaconda3*.sh 
+RUN ./Anaconda3*.sh -b
+RUN /root/anaconda3/bin/pip install --upgrade pip
+RUN cd /opt && git clone https://github.com/neulab/xnmt.git && cd /opt/xnmt && /root/anaconda3/bin/pip install -r requirements.txt && /root/anaconda3/bin/pip install -r requirements-extra.txt && /root/anaconda3/bin/python setup.py install
 
 #docker run -ti --rm --runtime=nvidia -e NVIDIA_VISIBLE_DEVICES=2 nvidia/cuda
