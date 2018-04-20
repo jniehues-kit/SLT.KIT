@@ -27,10 +27,10 @@ do
 done
 
 #### prepare database and transcripts #####
-mkdir $datadir/db/
-mkdir $datadir/transcript/
+mkdir -p $datadir/db/
+mkdir -p $datadir/transcript/
 
-python extract_db.py "$tedliumdir" "$datadir"
+python /opt/SLT.KIT/scripts/xnmt/extract_db.py "$tedliumdir" "$datadir"
 cat $datadir/transcript/dev.char | sed "s/ //g" | sed "s/__/ /g" > $datadir/transcript/dev.words
 cat $datadir/transcript/test.char | sed "s/ //g" | sed "s/__/ /g" > $datadir/transcript/test.words
 cat $datadir/transcript/train.char | sed "s/ //g" | sed "s/__/ /g" > $datadir/transcript/train.words
