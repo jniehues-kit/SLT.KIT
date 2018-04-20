@@ -4,19 +4,6 @@ las-pyramidal: !Experiment
     default_layer_dim: 512
     placeholders:
       DATA_DIR: /data/tedlium2-xnmt/
-  preproc: !PreprocRunner
-    overwrite: False
-    tasks:
-    - !PreprocExtract
-      in_files:
-      - '{DATA_DIR}/db/dev.yaml'
-      - '{DATA_DIR}/db/test.yaml'
-      - '{DATA_DIR}/db/train.yaml'
-      out_files:
-      - '{DATA_DIR}/feat/dev.h5'
-      - '{DATA_DIR}/feat/test.h5'
-      - '{DATA_DIR}/feat/train.h5'
-      specs: !MelFiltExtractor {}
   model: !DefaultTranslator
     src_embedder: !NoopEmbedder
       emb_dim: 40
