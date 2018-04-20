@@ -4,6 +4,7 @@ las-pyramidal: !Experiment
     default_layer_dim: 512
     placeholders:
       DATA_DIR: /data/tedlium2-xnmt/
+      SYS_DIR: /opt/SLT.KIT/systems/las-tedlium2
   model: !DefaultTranslator
     src_embedder: !NoopEmbedder
       emb_dim: 40
@@ -32,7 +33,7 @@ las-pyramidal: !Experiment
       transpose: true
     trg_reader: !PlainTextReader
       vocab: !Vocab
-        vocab_file: '{EXP_DIR}/vocab.char'
+        vocab_file: '{SYS_DIR}/vocab.char'
   train: !SimpleTrainingRegimen
     src_file: '{DATA_DIR}/feat/train.h5'
     trg_file: '{DATA_DIR}/transcript/train.char'
