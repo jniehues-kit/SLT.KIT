@@ -25,6 +25,7 @@ RUN cd /opt && \
 
 RUN cd /opt && wget https://raw.githubusercontent.com/stanojevic/beer/master/packaged/beer_2.0.tar.gz && tar xfvz beer_2.0.tar.gz
 RUN cd /opt && git clone https://github.com/rwth-i6/CharacTER.git
+RUN cd /opt && wget https://www-i6.informatik.rwth-aachen.de/web/Software/mwerSegmenter.tar.gz && tar xzvf mwerSegmenter.tar.gz
 
 # XNMT
 RUN wget https://repo.continuum.io/archive/Anaconda3-5.1.0-Linux-x86_64.sh

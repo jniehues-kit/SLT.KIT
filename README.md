@@ -9,6 +9,7 @@ The system uses the following software:
 * [Translation error rate](http://www.cs.umd.edu/%7Esnover/tercom/)
 * [BEER](https://github.com/stanojevic/beer)
 * [CharacTER](https://github.com/rwth-i6/CharacTER)
+* [mwerSegmenter](https://www-i6.informatik.rwth-aachen.de/web/Software/mwerSegmenter.tar.gz)
 * [NLTK](http://www.nltk.org/)
 
 
