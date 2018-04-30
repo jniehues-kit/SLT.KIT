@@ -27,7 +27,7 @@ if __name__ == "__main__":
 
     units_set = set()    
     
-    with open(args.text, mode='r') as f:
+    with open(args.text, mode='r', encoding="utf-8") as f:
        for line in f:
            for word in line.split():
                units_set.add(word)
