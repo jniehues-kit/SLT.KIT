@@ -5,6 +5,7 @@ This repository contains a Spoken Language Translation System. It can be used to
 The system uses the following software:
 * [OpenNMT-py](https://github.com/OpenNMT/OpenNMT-py)
 * [Moses](http://www.statmt.org/moses/)
+* [XNMT](https://github.com/neulab/xnmt)
 * [Subword NMT](https://github.com/rsennrich/subword-nmt)
 * [Translation error rate](http://www.cs.umd.edu/%7Esnover/tercom/)
 * [BEER](https://github.com/stanojevic/beer)
@@ -85,7 +86,7 @@ and $testset can be:
 
 SLT model trained only on the [TED corpus] (https://wit3.fbk.eu/)
 
-Peformance:
+Performance:
 
 #### English to German ####
 | SET | BLEU | TER | BEER | CharacTER | BLEU(ci) | TER(ci) |
