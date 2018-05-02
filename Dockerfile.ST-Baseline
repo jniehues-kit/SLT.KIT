@@ -1,4 +1,5 @@
 From nvidia/cuda
+# From nvidia/cuda:8.0-devel
 
 #PyTorch
 RUN apt-get update && apt-get install -y python-pip python-dev build-essential libyaml-dev git wget xml-twig-tools libsort-naturally-perl default-jre sox cmake
@@ -40,6 +41,7 @@ RUN /root/anaconda3/bin/pip install torch torchvision editdistance
 RUN cd /opt && \
     git clone https://github.com/SeanNaren/warp-ctc/
 RUN mkdir /opt/warp-ctc/build && cd /opt/warp-ctc/build && cmake .. && make
+RUN export CUDA_HOME="/usr/local/cuda" && cd /opt/warp-ctc/pytorch_binding && /root/anaconda3/bin/python setup.py install
 ## pytorch-ctc
 #RUN cd /opt && \
 #    git clone -b iwslt ssh://tzenkel@rg3hpc1:/project/iwslt2015/EN/LM-tests/pytorch_ctc

@@ -15,7 +15,7 @@ general:
 data:
     # Common settings apply to all datasets, but can be overwritten per data set
     common:
-        input_dim: 80
+        input_dim: 40
         collate_fn: data_loader.collate.collate_3D
         context: 1
         step_size: 3
