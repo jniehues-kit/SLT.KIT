@@ -1,5 +1,5 @@
-# From nvidia/cuda
-From nvidia/cuda:8.0-devel
+From nvidia/cuda
+# From nvidia/cuda:8.0-devel
 
 #PyTorch
 RUN apt-get update && apt-get install -y python-pip python-dev build-essential libyaml-dev git wget xml-twig-tools libsort-naturally-perl default-jre sox cmake
