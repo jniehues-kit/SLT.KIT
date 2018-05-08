@@ -1,15 +1,13 @@
 general:
     labels: /data/tedlium2-xnmt/bpe300/units.json
-    logfile: bpe300D.log
-    final_dump: bpe300D.mdl
+    logfile: /model/ctc/bpe300D.log
+    final_dump: /model/ctc/bpe300D.mdl
     epochs: 50
     learning_rate: 0.0005
     momentum: 0.9
     max_norm: 400
     use_cuda: True
     optimizer: optimizer.SGD
-    # model_params: /project/iwslt2015/EN/LM-tests/pytorch_ctc/egs/tedlium/train2/bpe0D.mdl
-    # remove_params: module.linear.weight
 
 # Define the datasets
 data:
@@ -19,11 +17,8 @@ data:
         collate_fn: data_loader.collate.collate_3D
         context: 1
         step_size: 3
-        batch_size: 10
+        batch_size: 40
         num_workers: 1
-        feat_length_min: 100
-        feat_length_max: 3500
-        target_length_max: 630
         frame_shift: 0.010
     train:
         data_set: data_loader.iwslt_data_loader.SequenceDataset
