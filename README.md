@@ -12,6 +12,7 @@ The system uses the following software:
 * [CharacTER](https://github.com/rwth-i6/CharacTER)
 * [mwerSegmenter](https://www-i6.informatik.rwth-aachen.de/web/Software/mwerSegmenter.tar.gz)
 * [NLTK](http://www.nltk.org/)
+* [LIUM Speaker Diarization](http://lium3.univ-lemans.fr/diarization/doku.php)
 * [CTC.ISL](https://github.com/markus-m-u-e-l-l-e-r/CTC.ISL)
 
 
