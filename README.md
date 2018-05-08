@@ -1,6 +1,6 @@
 # SLT.KIT
 
-This repository contains a Spoken Language Translation System. It can be used to translate the output of an Automatic Speech Recognition (ASR) system. The system contains of an monolingual translation system that adds punctuation marks to the output of the ASR system. Furthermore, it recases the output. Then the output is translated by an machine translation system system. The system can be used to train such system as well as pre-trained systems are availabel. The systems can be trained and used by installing the docker container.
+This repository contains a Spoken Language Translation System. It can be used to translate the output of an Automatic Speech Recognition (ASR) system. The system contains an monolingual translation system that adds punctuation marks to the output of the ASR system. Furthermore, it recases the output. Then the output is translated by an machine translation system system. The system can be used to train such systems as well as pre-trained systems are available. The systems can be trained and used by installing the docker container.
 
 The system uses the following software:
 * [OpenNMT-py](https://github.com/OpenNMT/OpenNMT-py)
@@ -12,6 +12,7 @@ The system uses the following software:
 * [CharacTER](https://github.com/rwth-i6/CharacTER)
 * [mwerSegmenter](https://www-i6.informatik.rwth-aachen.de/web/Software/mwerSegmenter.tar.gz)
 * [NLTK](http://www.nltk.org/)
+* [CTC.ISL](https://github.com/markus-m-u-e-l-l-e-r/CTC.ISL)
 
 
 Requirements:
