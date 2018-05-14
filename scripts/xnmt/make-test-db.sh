@@ -12,7 +12,7 @@ else
     cat $1/wavs/$f.seg | grep --invert-match ";;" | awk '{print "- {\"wav\": \"$1/wavs/" $1 ".wav\", \"offset\":" $3/100 ", \"duration\":" ($4)/100 "}"}' >> $1/test-db.yaml
   done
  
-  cat /opt/SLT.KIT/scripts/extract-test-db.yaml | sed "s|{IN}|$1/test-db.yaml|g" | sed "s|{OUT}|$1/test-db.h5|g" > $1/extract-test-db.yaml
+  cat /opt/SLT.KIT/scripts/xnmt/extract-test-db.yaml | sed "s|{IN}|$1/test-db.yaml|g" | sed "s|{OUT}|$1/test-db.h5|g" > $1/extract-test-db.yaml
 
   /root/anaconda3/bin/python -m xnmt.xnmt_run_experiments $1/extract-test-db.yaml
 

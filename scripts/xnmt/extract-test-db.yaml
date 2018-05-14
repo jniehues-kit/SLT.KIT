@@ -1,0 +1,11 @@
+extract-test-data: !Experiment
+  preproc: !PreprocRunner
+    overwrite: False
+    tasks:
+    - !PreprocExtract
+      in_files:
+      - {IN}
+      out_files:
+      - {OUT}
+      specs: !MelFiltExtractor {}
+
