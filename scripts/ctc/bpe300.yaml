@@ -1,7 +1,7 @@
 general:
-    labels: /data/tedlium2-xnmt/bpe300/units.json
-    logfile: /model/ctc/bpe300D.log
-    final_dump: /model/ctc/bpe300D.mdl
+    labels: /model/ctc/units300.json
+    logfile: /model/ctc/bpe300.log
+    final_dump: /model/ctc/bpe300.mdl
     epochs: 50
     learning_rate: 0.0005
     momentum: 0.9
@@ -17,7 +17,7 @@ data:
         collate_fn: data_loader.collate.collate_3D
         context: 1
         step_size: 3
-        batch_size: 40
+        batch_size: 10
         num_workers: 1
         frame_shift: 0.010
     train:

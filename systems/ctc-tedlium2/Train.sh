@@ -2,6 +2,7 @@
 
 BPE_STEPS=300
 mkdir -p /data/tedlium2-xnmt/bpe${BPE_STEPS}
+mkdir -p /model/ctc
 
 if [ ! -f /data/tedlium2-xnmt/feat/train.h5 ]; then
   echo "No audio features found! Running xnmt preprocessing"
@@ -18,8 +19,8 @@ do
 done
 
 # write mapping of units to ids
-/root/anaconda3/bin/python /opt/SLT.KIT/scripts/ctc/create_unit_dict.py --text /data/tedlium2-xnmt/bpe${BPE_STEPS}/train.units --output /data/tedlium2-xnmt/bpe${BPE_STEPS}/units.json
+/root/anaconda3/bin/python /opt/SLT.KIT/scripts/ctc/create_unit_dict.py --text /data/tedlium2-xnmt/bpe${BPE_STEPS}/train.units --output /model/ctc/units${BPE_STEPS}.json
 
 # Train
-mkdir -p /model/ctc/
-/root/anaconda3/bin/python /opt/CTC.ISL/train.py --config /opt/SLT.KIT/scripts/ctc/bpe300.yaml
+/root/anaconda3/bin/python /opt/CTC.ISL/train.py --config /opt/SLT.KIT/scripts/ctc/bpe${BPE_STEPS}.yaml
+
