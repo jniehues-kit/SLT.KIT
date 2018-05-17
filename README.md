@@ -88,7 +88,7 @@ and $testset can be:
 
 ### small TED ###
 
-SLT model trained only on the [TED corpus] (https://wit3.fbk.eu/)
+SLT model trained only on the [TED corpus](https://wit3.fbk.eu/)
 
 Performance:
 
