@@ -22,8 +22,8 @@ if [ ! -e /model/ctc/bpe300.mdl ]; then
 fi
 
 # Test
-CTC_OUTPUT=${DATA_PATH}/CTC
+CTC_OUTPUT=/data/ctc/eval/
 mkdir -p ${CTC_OUTPUT}
-/root/anaconda3/bin/python /opt/CTC.ISL/test.py /opt/SLT.KIT/scripts/ctc/bpe300.yaml --logits_file ${CTC_OUTPUT}/logits.h5 --hyp_file ${CTC_OUTPUT}/greedy.txt --model /model/ctc/bpe300.mdl --audio_features ${DATA_PATH}/test-db.h5
+/root/anaconda3/bin/python /opt/CTC.ISL/test.py /opt/SLT.KIT/scripts/ctc/bpe300.yaml --logits_file ${CTC_OUTPUT}/${set}.logits --hyp_file ${CTC_OUTPUT}/${set}.s --model /model/ctc/bpe300.mdl --audio_features ${DATA_PATH}/test-db.h5
 
 
