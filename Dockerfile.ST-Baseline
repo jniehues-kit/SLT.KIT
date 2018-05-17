@@ -1,18 +1,18 @@
-From nvidia/cuda
-# From nvidia/cuda:8.0-devel
+ARG CUDA
+From nvidia/cuda:${CUDA}-devel
 
 #PyTorch
 RUN apt-get update && apt-get install -y python-pip python-dev build-essential libyaml-dev git wget xml-twig-tools libsort-naturally-perl default-jre sox cmake
 RUN pip install --upgrade pip
-RUN pip install http://download.pytorch.org/whl/cu90/torch-0.3.0.post4-cp27-cp27mu-linux_x86_64.whl 
+RUN cd /opt && \
+    git clone https://github.com/jniehues-kit/SLT.KIT.git
+RUN /opt/SLT.KIT/DownloadPyTorch.sh $CUDA
 RUN pip install torchvision
 RUN pip install -U numpy
 RUN pip install nltk
 
 RUN cd /opt && \
     git clone https://github.com/quanpn90/OpenNMT-py -b MultiLingual
-RUN cd /opt && \
-    git clone https://github.com/jniehues-kit/SLT.KIT.git
 
 RUN cd /opt && \
     git clone https://github.com/moses-smt/mosesdecoder.git
@@ -51,4 +51,3 @@ RUN cd /opt && \
 RUN mkdir /opt/warp-ctc/build && cd /opt/warp-ctc/build && cmake .. && make
 RUN export CUDA_HOME="/usr/local/cuda" && cd /opt/warp-ctc/pytorch_binding && /root/anaconda3/bin/python setup.py install
 
-#docker run -ti --rm --runtime=nvidia -e NVIDIA_VISIBLE_DEVICES=2 nvidia/cuda
