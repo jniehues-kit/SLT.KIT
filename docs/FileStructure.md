@@ -5,13 +5,13 @@
 To build, download and use the different [systems](Systems.md) you can find the scripts in /opt/SLT.KIT/systems/${system}.
 In general this directory contains three different scripts
 
-  1 Training a model
+1. Training a model
 
 ```bash
     /opt/SLT.KIT/systems/${model}/Train.sh
 ```
 
-  2 Download a pre-trained model
+2. Download a pre-trained model
 
 
 ```bash
@@ -19,8 +19,7 @@ In general this directory contains three different scripts
 ```
 
 
-
-  2 Translate test set
+3. Translate test set
 
 ```bash
     /opt/SLT.KIT/systems/${model}/Test.sh $testset
