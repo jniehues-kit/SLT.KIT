@@ -31,7 +31,7 @@ In general this directory contains three different scripts
 All data is stored in the /data directory
 
 * /data/${component}/: Training data after processing of the individual components
-* /data/${component}/eval/: Test data after processing of the individual comopents
+* /data/${component}/eval/: Test data after processing of the individual components
 
 
 ## Model ##
