@@ -53,7 +53,7 @@ Requirements:
     * ctc-tedlium2.smallTED: Combination of the ctc-tedlium2 ASR system and the smallTED system for sentence segmentation and MT
 
   * ASR systems: Systems to transcribe the audio
-    * ctc-tedlium2
+    * ctc-tedlium2: Simple LSTM network trained with the CTC loss that outputs BPE units
     * las-tedlium2
 
   * Sentence segmentation/MT
