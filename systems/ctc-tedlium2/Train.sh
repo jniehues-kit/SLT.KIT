@@ -10,12 +10,12 @@ if [ ! -f /data/tedlium2-xnmt/feat/train.h5 ]; then
 fi
 
 # learn bpe
-/root/anaconda3/bin/python /opt/subword-nmt/subword_nmt.py learn-bpe --input /data/tedlium2-xnmt/transcript/train.words --output /data/tedlium2-xnmt/bpe${BPE_STEPS}/bpe.rules --symbols ${BPE_STEPS}
+/root/anaconda3/bin/python /opt/subword-nmt/subword_nmt/subword_nmt.py learn-bpe --input /data/tedlium2-xnmt/transcript/train.words --output /data/tedlium2-xnmt/bpe${BPE_STEPS}/bpe.rules --symbols ${BPE_STEPS}
 
 # apply bpe
 for data in "test" "dev" "train"
 do
-  /root/anaconda3/bin/python /opt/subword-nmt/subword_nmt.py apply-bpe -c /data/tedlium2-xnmt/bpe${BPE_STEPS}/bpe.rules < /data/tedlium2-xnmt/transcript/${data}.words > /data/tedlium2-xnmt/bpe${BPE_STEPS}/${data}.units
+  /root/anaconda3/bin/python /opt/subword-nmt/subword_nmt/subword_nmt.py apply-bpe -c /data/tedlium2-xnmt/bpe${BPE_STEPS}/bpe.rules < /data/tedlium2-xnmt/transcript/${data}.words > /data/tedlium2-xnmt/bpe${BPE_STEPS}/${data}.units
 done
 
 # write mapping of units to ids
