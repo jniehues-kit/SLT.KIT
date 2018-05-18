@@ -13,7 +13,7 @@ RUN pip install -U numpy
 RUN pip install nltk
 
 RUN cd /opt && \
-    git clone https://github.com/quanpn90/OpenNMT-py -b MultiLingual
+    git clone https://github.com/quanpn90/OpenNMT-py
 
 RUN cd /opt && \
     git clone https://github.com/moses-smt/mosesdecoder.git
