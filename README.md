@@ -52,7 +52,7 @@ Requirements:
   * Cascaded systems: Systems that combine an ASR, sentence segmentation/puncation and MT component
     * ctc-tedlium2.smallTED: Combination of the ctc-tedlium2 ASR system and the smallTED system for sentence segmentation and MT
 
-  * ASR systems: Systems to transcribe the the audio
+  * ASR systems: Systems to transcribe the audio
     * ctc-tedlium2
     * las-tedlium2
 
