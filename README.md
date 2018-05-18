@@ -43,45 +43,41 @@ Requirements:
 
 ## File Structure ##
 
-* The general file structure used by all models and systems is described in [File structure](docs/FileStrcture.md)
+* The general file structure used by all models and systems is described in [File structure](docs/FileStructure.md)
 
 
 ## System ##
 
 * This repository contains different [systems](docs/Systems.md) that can be used to do speech translation
-** Cascaded systems: Systems that combine an ASR, sentence segmentation/puncation and MT component
-*** ctc-tedlium2.smallTED: Combination of the ctc-tedlium2 ASR system and the smallTED system for sentence segmentation and MT
+  * Cascaded systems: Systems that combine an ASR, sentence segmentation/puncation and MT component
+    * ctc-tedlium2.smallTED: Combination of the ctc-tedlium2 ASR system and the smallTED system for sentence segmentation and MT
 
-** ASR systems: Systems to transcribe the the audio
-*** ctc-tedlium2
-*** las-tedlium2
+  * ASR systems: Systems to transcribe the the audio
+    * ctc-tedlium2
+    * las-tedlium2
 
-** Sentence segmentation/MT
-*** smallTED: System trained on the TED corpus
-*** midSize: System trained on TED and EPPS corpus
+  * Sentence segmentation/MT
+    * smallTED: System trained on the TED corpus
+    * midSize: System trained on TED and EPPS corpus
 
 
 ## Test sets ##
 * English to {German | French}
-** dev2010
-** tst2010
-** tst2013 (only German)
-** tst2014
-** tst2015
+  * dev2010
+  * tst2010
+  * tst2013 (only German)
+  * tst2014
+  * tst2015
 * German to English
-** dev2012
-** tst2013
-** tst2014
+  * dev2012
+  * tst2013
+  * tst2014
 
 
 ## Results ##
 
 
 ### small TED ###
-
-SLT model trained only on the
-
-Performance:
 
 #### English to German ####
 | SET | BLEU | TER | BEER | CharacTER | BLEU(ci) | TER(ci) |
@@ -120,3 +116,20 @@ Performance:
 | tst2013 (manual Transcript) | 22.68 | 59.64 | 56.15 | 57.47 | 23.45 | 58.63 |
 | tst2014 | 10.05 | 79.03 | 41.04 | 93.92 | 10.69 | 77.46 |
 | tst2014 (manual Transcript) | 17.86 | 65.73 | 51.52 | 64.09 | 18.3 | 64.99 |
+
+
+### midSize ###
+
+#### English to German ####
+| SET | BLEU | TER | BEER | CharacTER | BLEU(ci) | TER(ci) |
+| --- | ---- | --- | ---- | --------- | -------- | ------- |
+| dev2010 | 17.07 | 67.97 | 48.03 | 68.74 | 18.11 | 65.84 |
+| dev2010 (manual Transcript) | 27.16 | 52.73 | 56.19 | 45.83 | 28.78 | 51.16 |
+| tst2010 | 12.37 | 74.72 | 36.89 | 290.67 | 13.17 | 73.01 |
+| tst2010 (manual Transcript) | 28.77 | 51.86 | 55.18 | 45.82 | 30.57 | 50.21 |
+| tst2013 | 16.59 | 68.62 | 45.91 | 74.03 | 17.65 | 66.41 |
+| tst2013 (manual Transcript) | 31.13 | 49.81 | 56.25 | 43.99 | 32.74 | 48.41 |
+| tst2014 | 15.42 | 71.27 | 44.47 | 73.02 | 16.39 | 69.33 |
+| tst2014 (manual Transcript) | 26.84 | 54.70 | 53.57 | 48.39 | 27.79 | 53.69 |
+| tst2015 | 15.15 | 81.31 | 44.86 | 73.41 | 16.02 | 79.39 |
+| tst2015 (manual Transcript) | 29.86 | 52.69 | 55.06 | 45.30 | 30.75 | 51.85 |
