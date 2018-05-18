@@ -22,10 +22,10 @@ Requirements:
 ## Installation ##
 
 ```bash
-	git clone https://github.com/jniehues-kit/SLT.KIT.git
-	cd SLT.KIT
-	docker build --build-arg CUDA=$CUDAVERSION -t slt.kit -f Dockerfile.ST-Baseline .
-	with CUDAVERSION = 8.0 or 9.0 or 9.1
+    git clone https://github.com/jniehues-kit/SLT.KIT.git
+    cd SLT.KIT
+    docker build --build-arg CUDA=$CUDAVERSION -t slt.kit -f Dockerfile.ST-Baseline .
+    with CUDAVERSION = 8.0 or 9.0 or 9.1
 ```
 
 ## Run ##
@@ -35,42 +35,33 @@ Requirements:
 
 
 ```bash
-	docker run -ti --rm --runtime=nvidia -e NVIDIA_VISIBLE_DEVICES=$gpuid slt.kit
-	export sl=en
-	export tl=de
-```
-
-* Within a docker container
-
-  1 Training a model or download pre-trained model
-    * Training a model
-
-```bash
-	/opt/SLT.KIT/systems/${model}/Train.sh
-```
-
-    * Download a pre-trained model
-
-
-```bash
-	/opt/SLT.KIT/systems/${model}/Download.sh
+    docker run -ti --rm --runtime=nvidia -e NVIDIA_VISIBLE_DEVICES=$gpuid slt.kit
+    export sl=en
+    export tl=de
 ```
 
 
+## File Structure ##
 
-  2 Translate test set
-
-```bash
-	/opt/SLT.KIT/systems/${model}/Translate.sh $testset
-```
+* The general file structure used by all models and systems is described in [File structure](docs/FileStrcture.md)
 
 
+## System ##
+
+* This repository contains different [systems](docs/Systems.md) that can be used to do speech translation
+** Cascaded systems: Systems that combine an ASR, sentence segmentation/puncation and MT component
+*** ctc-tedlium2.smallTED: Combination of the ctc-tedlium2 ASR system and the smallTED system for sentence segmentation and MT
+
+** ASR systems: Systems to transcribe the the audio
+*** ctc-tedlium2
+*** las-tedlium2
+
+** Sentence segmentation/MT
+*** smallTED: System trained on the TED corpus
+*** midSize: System trained on TED and EPPS corpus
 
 
-where $model can be:
-* smallTED
-
-and $testset can be:
+## Test sets ##
 * English to {German | French}
 ** dev2010
 ** tst2010
@@ -83,12 +74,12 @@ and $testset can be:
 ** tst2014
 
 
-## Models ##
+## Results ##
 
 
 ### small TED ###
 
-SLT model trained only on the [TED corpus](https://wit3.fbk.eu/)
+SLT model trained only on the
 
 Performance:
 
