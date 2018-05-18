@@ -23,6 +23,9 @@
    * Translation: /data/mt/eval/ctc.${testset}.t
    * Results: /results/ctc.smallTED/ctc.${setset}/Summary.md
 
+### ctc-tedlium2.midSize
+  * Same as ctc-tedlium2.smallTED except using the midSize system for MT and segmentation/punctuation
+
 ## ASR Systems
 
 ### ctc-tedlium2

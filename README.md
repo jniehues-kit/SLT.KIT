@@ -51,6 +51,7 @@ Requirements:
 * This repository contains different [systems](docs/Systems.md) that can be used to do speech translation
   * Cascaded systems: Systems that combine an ASR, sentence segmentation/puncation and MT component
     * ctc-tedlium2.smallTED: Combination of the ctc-tedlium2 ASR system and the smallTED system for sentence segmentation and MT
+    * ctc-tedlium2.midSize: Combination of the ctc-tedlium2 ASR system and the midSize system for sentence segmentation and MT
 
   * ASR systems: Systems to transcribe the audio
     * ctc-tedlium2: Simple LSTM network trained with the CTC loss that outputs BPE units
