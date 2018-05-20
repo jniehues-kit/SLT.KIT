@@ -23,7 +23,7 @@
    * Output of the ASR component:  /data/ctc/eval/${testset}.s
    * Segmented and punctuated transcript: /data/monoTransPrepro/eval/ctc.${testset}.s
    * Translation: /data/mt/eval/ctc.${testset}.t
-   * Results: /results/ctc.smallTED/ctc.${setset}/Summary.md
+   * Results: /results/ctc-tedlium2.smallTED/ctc.${setset}/Summary.md
 
 ### ctc-tedlium2.midSize
   * Same as ctc-tedlium2.smallTED except using the midSize system for MT and segmentation/punctuation
