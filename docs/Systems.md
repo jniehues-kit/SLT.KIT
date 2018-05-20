@@ -7,9 +7,11 @@
  * Languages:
    * English-German
  * Training: There is no script to train this system directly, but you can train both system individually with the scripts in that folder
- * Download: You can download the system with the scripts
+ * Download: You can download the system with the following script (remember to set the appropriate source and target language to select the correct MT system, if you haven't done that yet):
 
  ```bash
+ export sl=en
+ export tl=de
  /opt/SLT.KIT/systems/ctc-tedlium2.smallTED/Download.sh
  ```
   * For the individual components used in this system refer to the components of the two individual systems
