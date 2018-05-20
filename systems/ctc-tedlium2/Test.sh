@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if (( $# != 1 )); then
+  echo "Specify a test set as a parameter to this script (e.g. tst2010)"
+  exit
+fi
+
 set=$1
 
 #Download Data - if not there
