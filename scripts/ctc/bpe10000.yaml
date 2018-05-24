@@ -1,0 +1,45 @@
+general:
+    labels: /model/ctc/units10000.json
+    logfile: /model/ctc/bpe10000.log
+    final_dump: /model/ctc/bpe10000.mdl
+    epochs: 50
+    learning_rate: 0.0005
+    momentum: 0.9
+    max_norm: 400
+    use_cuda: True
+    optimizer: optimizer.SGD
+
+# Define the datasets
+data:
+    # Common settings apply to all datasets, but can be overwritten per data set
+    common:
+        input_dim: 40
+        collate_fn: data_loader.collate.collate_3D
+        context: 1
+        step_size: 3
+        batch_size: 10
+        num_workers: 1
+        frame_shift: 0.010
+    train:
+        data_set: data_loader.iwslt_data_loader.SequenceDataset
+        data_loader: data_loader.iwslt_data_loader.AudioDataLoader
+        audio_features: /data/tedlium2-xnmt/feat/train.h5
+        input_text: /data/tedlium2-xnmt/bpe10000/train.units
+        shuffle: True
+    valid:
+        data_set: data_loader.iwslt_data_loader.SequenceDataset
+        data_loader: data_loader.iwslt_data_loader.AudioDataLoader
+        audio_features: /data/tedlium2-xnmt/feat/dev.h5
+        input_text: /data/tedlium2-xnmt/bpe10000/dev.units
+        start_idx: 1
+
+# Define the model and the parameters
+# Each model may support custom parameters
+model:
+    class: model.simpleLSTM.LSTM
+    rnn_hidden_size: 400
+    rnn_layers: 4
+    bidirectional: True
+    dropout: 0.25
+    load: /model/ctc/bpe300.mdl
+    remove_params: linear.weight

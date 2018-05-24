@@ -1,6 +1,12 @@
 #!/bin/bash
 
 BPE_STEPS=300
+
+if (( $# == 1 )); then
+  BPE_STEPS=$1
+  echo "Setting BPE Steps to ${BPE_STEPS}"
+fi
+
 mkdir -p /data/tedlium2-xnmt/bpe${BPE_STEPS}
 mkdir -p /model/ctc
 
@@ -19,7 +25,9 @@ do
 done
 
 # write mapping of units to ids
-/root/anaconda3/bin/python /opt/SLT.KIT/scripts/ctc/create_unit_dict.py --text /data/tedlium2-xnmt/bpe${BPE_STEPS}/train.units --output /model/ctc/units${BPE_STEPS}.json
+cat /data/tedlium2-xnmt/bpe${BPE_STEPS}/*.units > /data/tedlium2-xnmt/bpe${BPE_STEPS}/all.units.tmp
+/root/anaconda3/bin/python /opt/SLT.KIT/scripts/ctc/create_unit_dict.py --text /data/tedlium2-xnmt/bpe${BPE_STEPS}/all.units.tmp --output /model/ctc/units${BPE_STEPS}.json
+rm /data/tedlium2-xnmt/bpe${BPE_STEPS}/all.units.tmp
 
 # Train
 /root/anaconda3/bin/python /opt/CTC.ISL/train.py --config /opt/SLT.KIT/scripts/ctc/bpe${BPE_STEPS}.yaml
