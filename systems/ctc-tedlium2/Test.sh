@@ -4,6 +4,7 @@ if (( $# != 1 )); then
   echo "Specify a test set as a parameter to this script (e.g. tst2010)"
   exit
 fi
+BPE_SIZE=10000
 
 set=$1
 
@@ -22,13 +23,12 @@ if [ ! -e ${DATA_PATH}/test-db.h5 ]; then
 fi
 
 # Download model if is not there yet
-if [ ! -e /model/ctc/bpe300.mdl ]; then
+if [ ! -e /model/ctc/bpe${BPE_SIZE}.mdl ]; then
     /opt/SLT.KIT/systems/ctc-tedlium2/Download.sh    
 fi
 
 # Test
 CTC_OUTPUT=/data/ctc/eval/
 mkdir -p ${CTC_OUTPUT}
-/root/anaconda3/bin/python /opt/CTC.ISL/test.py /opt/SLT.KIT/scripts/ctc/bpe300.yaml --logits_file ${CTC_OUTPUT}/${set}.logits --hyp_file ${CTC_OUTPUT}/${set}.s --model /model/ctc/bpe300.mdl --audio_features ${DATA_PATH}/test-db.h5
-
+/root/anaconda3/bin/python /opt/CTC.ISL/test.py /opt/SLT.KIT/scripts/ctc/bpe${BPE_SIZE}.yaml --logits_file ${CTC_OUTPUT}/${set}.logits --hyp_file ${CTC_OUTPUT}/${set}.s --model /model/ctc/bpe${BPE_SIZE}.mdl --audio_features ${DATA_PATH}/test-db.h5
 
