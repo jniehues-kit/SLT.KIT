@@ -1,6 +1,7 @@
 las-pyramidal-test: !Experiment
   exp_global: !ExpGlobal
-    TEST_DATA: REPLACE_WITH_TEST_DATA_DIR
+    placeholders:
+      TEST_DATA: REPLACE_WITH_TEST_DATA_DIR
   model: !LoadSerialized
     filename: /opt/SLT.KIT/scripts/xnmt/models/las-pyramidal.mod
     path: model
