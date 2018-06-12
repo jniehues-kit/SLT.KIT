@@ -1,0 +1,12 @@
+las-pyramidal-test: !Experiment
+  exp_global: !ExpGlobal
+    TEST_DATA: REPLACE_WITH_TEST_DATA_DIR
+  model: !LoadSerialized
+    filename: /opt/SLT.KIT/scripts/xnmt/models/las-pyramidal.mod
+    path: model
+  evaluate:
+  - !DecodingEvalTask
+    src_file: '{TEST_DATA}/test-db.h5'
+    hyp_file: '{TEST_DATA}/test-db.decoded.txt'
+    
+    
