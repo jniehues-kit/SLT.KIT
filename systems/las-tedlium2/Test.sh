@@ -17,7 +17,7 @@ cd /opt/SLT.KIT/scripts/xnmt
 ./make-test-db.sh /data/orig/eval/$set/IWSLT.$set
 sed "s|REPLACE_WITH_TEST_DATA_DIR|/data/orig/eval/$set/IWSLT.$set|g" /opt/SLT.KIT/scripts/xnmt/config.las-pyramidal-test.yaml > /data/orig/eval/$set/IWSLT.$set/config.las-pyramidal-test.yaml
 /root/anaconda3/bin/python -m xnmt.xnmt_run_experiments --dynet-gpu /data/orig/eval/$set/IWSLT.$set/config.las-pyramidal-test.yaml
-mkdir -p /data/las
+mkdir -p /data/las/eval
 cat /data/orig/eval/$set/IWSLT.$set/test-db.decoded.txt | sed "s/ //g" | sed "s/__/ /g" > /data/las/eval/$set.s
  
 
