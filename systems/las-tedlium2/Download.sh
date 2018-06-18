@@ -1,7 +1,6 @@
 #!/bin/bash
 
-# TODO: needed / correct?
-#export systemName=las-tedlium2
+export systemName=las-tedlium2
 
 mkdir -p /model
 cd /
