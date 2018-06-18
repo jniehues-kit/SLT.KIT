@@ -22,7 +22,7 @@ Requirements:
 ## Installation ##
 
 ```bash
-    git clone https://github.com/jniehues-kit/SLT.KIT.git
+    git clone https://github.com/isl-mt/SLT.KIT.git
     cd SLT.KIT
     docker build --build-arg CUDA=$CUDAVERSION -t slt.kit -f Dockerfile.ST-Baseline .
     with CUDAVERSION = 8.0 or 9.0 or 9.1
