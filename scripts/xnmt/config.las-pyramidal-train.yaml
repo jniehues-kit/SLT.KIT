@@ -2,6 +2,7 @@ las-pyramidal: !Experiment
   exp_global: !ExpGlobal
     dropout: 0.2
     default_layer_dim: 512
+    model_file: '/model/las/{EXP}.mod'
     placeholders:
       DATA_DIR: /data/tedlium2-xnmt/
       SYS_DIR: /opt/SLT.KIT/systems/las-tedlium2

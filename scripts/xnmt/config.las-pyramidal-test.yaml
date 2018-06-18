@@ -3,7 +3,7 @@ las-pyramidal-test: !Experiment
     placeholders:
       TEST_DATA: REPLACE_WITH_TEST_DATA_DIR
   model: !LoadSerialized
-    filename: /opt/SLT.KIT/scripts/xnmt/models/las-pyramidal.mod
+    filename: /model/las/las-pyramidal.mod
     path: model
   evaluate:
   - !DecodingEvalTask
