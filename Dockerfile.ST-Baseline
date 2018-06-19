@@ -11,6 +11,7 @@ RUN /opt/SLT.KIT/DownloadPyTorch.sh ${CUDA}
 RUN pip install torchvision
 RUN pip install -U numpy
 RUN pip install nltk
+RUN pip install subword-nmt
 
 RUN cd /opt && \
     git clone https://github.com/quanpn90/OpenNMT-py
