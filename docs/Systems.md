@@ -74,7 +74,7 @@
   * mt: [OpenNMT-py](http://opennmt.net/) based NMT system
 * Training: You can train the system with the scripts
 ```bash
-/opt/SLT.KIT/systems/smallTED/Download.sh
+/opt/SLT.KIT/systems/smallTED/Train.sh
 ```
 * Download: You can download the system with the scripts
 
