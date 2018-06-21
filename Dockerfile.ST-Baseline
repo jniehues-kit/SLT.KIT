@@ -11,6 +11,7 @@ RUN /opt/SLT.KIT/DownloadPyTorch.sh ${CUDA}
 RUN pip install torchvision
 RUN pip install -U numpy
 RUN pip install nltk
+RUN pip install subword-nmt
 
 RUN cd /opt && \
     git clone https://github.com/quanpn90/OpenNMT-py
@@ -57,12 +58,13 @@ RUN cd /opt && git clone -b iwslt2018 https://github.com/neulab/xnmt.git && cd /
 
 # PYTORCH-CTC
 ## CTC.ISL
+RUN /opt/SLT.KIT/DownloadPyTorch-Anaconda.sh ${CUDA}
+RUN /root/anaconda3/bin/pip install torchvision
 RUN cd /opt && \
-    git clone https://github.com/markus-m-u-e-l-l-e-r/CTC.ISL && cd CTC.ISL && /root/anaconda3/bin/pip install -r requirements.txt && \
-    /root/anaconda3/bin/pip install torch torchvision
+    git clone https://github.com/markus-m-u-e-l-l-e-r/CTC.ISL && cd CTC.ISL && /root/anaconda3/bin/pip install -r requirements.txt
 ## warp-ctc and pytorch binding
 RUN cd /opt && \
     git clone https://github.com/SeanNaren/warp-ctc/
 RUN mkdir /opt/warp-ctc/build && cd /opt/warp-ctc/build && cmake .. && make
-RUN export CUDA_HOME="/usr/local/cuda" && cd /opt/warp-ctc/pytorch_binding && /root/anaconda3/bin/python setup.py install
+# RUN export CUDA_HOME="/usr/local/cuda" && cd /opt/warp-ctc/pytorch_binding && /root/anaconda3/bin/python setup.py install
 
