@@ -53,7 +53,7 @@ RUN cd /opt/dynet/build && cmake /opt/dynet -DEIGEN3_INCLUDE_DIR=/opt/eigen -DBA
 RUN cd /opt/dynet/build/python && /root/anaconda3/bin/python /opt/dynet/setup.py build --build-dir=/opt/dynet/build --skip-build install
 
 # XNMT
-RUN cd /opt && git clone https://github.com/neulab/xnmt.git && cd /opt/xnmt && /root/anaconda3/bin/pip install -r requirements.txt && /root/anaconda3/bin/pip install -r requirements-extra.txt && /root/anaconda3/bin/python setup.py install
+RUN cd /opt && git clone -b iwslt2018 https://github.com/neulab/xnmt.git && cd /opt/xnmt && /root/anaconda3/bin/pip install -r requirements.txt && /root/anaconda3/bin/pip install -r requirements-extra.txt && /root/anaconda3/bin/python setup.py install
 
 # PYTORCH-CTC
 ## CTC.ISL
