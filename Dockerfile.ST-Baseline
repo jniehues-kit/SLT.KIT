@@ -68,3 +68,7 @@ RUN cd /opt && \
 RUN mkdir /opt/warp-ctc/build && cd /opt/warp-ctc/build && cmake .. && make
 RUN export CUDA_HOME="/usr/local/cuda" && cd /opt/warp-ctc/pytorch_binding && /root/anaconda3/bin/python setup.py install
 
+# ASR Scoring NIST Scoring Toolkit
+RUN cd /opt && wget http://www.openslr.org/resources/4/sctk-2.4.10-20151007-1312Z.tar.bz2 && tar jxf sctk-2.4.10-20151007-1312Z.tar.bz2 && rm sctk-2.4.10-20151007-1312Z.tar.bz2
+RUN cd /opt/sctk-2.4.10 && make config && make all && make install && make doc
+
