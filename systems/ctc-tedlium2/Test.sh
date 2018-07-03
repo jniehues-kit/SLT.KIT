@@ -32,3 +32,6 @@ CTC_OUTPUT=/data/ctc/eval/
 mkdir -p ${CTC_OUTPUT}
 /root/anaconda3/bin/python /opt/CTC.ISL/test.py /opt/SLT.KIT/scripts/ctc/bpe${BPE_SIZE}.yaml --logits_file ${CTC_OUTPUT}/${set}.logits --hyp_file ${CTC_OUTPUT}/${set}.s --model /model/ctc/bpe${BPE_SIZE}.mdl --audio_features ${DATA_PATH}/test-db.h5
 
+mkdir -p ${CTC_OUTPUT}/${set}
+/opt/SLT.KIT/scripts/evaluate/Eval.asr.sh $set ${CTC_OUTPUT}/${set}.s ${CTC_OUTPUT}/${set}
+
