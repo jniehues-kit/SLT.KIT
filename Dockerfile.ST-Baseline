@@ -42,12 +42,6 @@ RUN ./Anaconda3*.sh -b
 RUN /root/anaconda3/bin/pip install --upgrade pip
 
 # DyNet
-RUN echo "adsf"
-RUN echo "asdf"
-RUN echo "asdf"
-RUN echo "asdf"
-RUN echo "asdf"
-RUN echo "asdf"
 RUN cd /opt && hg clone https://bitbucket.org/eigen/eigen/ -r b2e267d
 RUN cd /opt && git clone https://github.com/clab/dynet.git && mkdir -p /opt/dynet/build
 RUN cd /opt/dynet/build && cmake /opt/dynet -DEIGEN3_INCLUDE_DIR=/opt/eigen -DBACKEND=cuda -DPYTHON=/root/anaconda3/bin/python && make
