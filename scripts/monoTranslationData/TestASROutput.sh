@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [ "$sl" == "" ] || [ "$tl" == "" ]; then
+  echo "Specify the source language (export sl=en) and the target language (export sl=de)!"
+  exit
+fi
+
 set=$1
 input=$2
 name=$3
