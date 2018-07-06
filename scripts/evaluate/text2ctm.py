@@ -38,6 +38,6 @@ if __name__ == '__main__':
 				
 				# CTM Format :== <F> <C> <BT> <DUR> word <CONF>
 				for i, word in enumerate(words):
-					begin_time = utt_info["offset"] + utt_info["duration"] * i
+					begin_time = utt_info["offset"] + duration * i
 					fo.write("{} {} {:.2f} {:.2f} {}\n".format(file, channel, begin_time, duration, word))
 
