@@ -10,6 +10,7 @@ The system uses the following software:
 * [Translation error rate](http://www.cs.umd.edu/%7Esnover/tercom/)
 * [BEER](https://github.com/stanojevic/beer)
 * [CharacTER](https://github.com/rwth-i6/CharacTER)
+* [SCTK](http://www1.icsi.berkeley.edu/Speech/docs/sctk-1.2/sclite.htm)
 * [mwerSegmenter](https://www-i6.informatik.rwth-aachen.de/web/Software/mwerSegmenter.tar.gz)
 * [NLTK](http://www.nltk.org/)
 * [LIUM Speaker Diarization](http://lium3.univ-lemans.fr/diarization/doku.php)
