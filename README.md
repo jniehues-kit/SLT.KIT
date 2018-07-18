@@ -61,7 +61,7 @@ Requirements:
 
   * ASR systems: Systems to transcribe the audio
     * ctc-tedlium2: Simple LSTM network trained with the CTC loss that outputs BPE units
-    * las-tedlium2
+    * las-tedlium2: Attention-based ASR system
 
   * Sentence segmentation/MT
     * ted: System trained on the TED corpus
