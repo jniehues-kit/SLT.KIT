@@ -42,12 +42,6 @@ RUN ./Anaconda3*.sh -b
 RUN /root/anaconda3/bin/pip install --upgrade pip
 
 # DyNet
-RUN echo "adsf"
-RUN echo "asdf"
-RUN echo "asdf"
-RUN echo "asdf"
-RUN echo "asdf"
-RUN echo "asdf"
 RUN cd /opt && hg clone https://bitbucket.org/eigen/eigen/ -r b2e267d
 RUN cd /opt && git clone https://github.com/clab/dynet.git && mkdir -p /opt/dynet/build
 RUN cd /opt/dynet/build && cmake /opt/dynet -DEIGEN3_INCLUDE_DIR=/opt/eigen -DBACKEND=cuda -DPYTHON=/root/anaconda3/bin/python && make
@@ -66,5 +60,9 @@ RUN cd /opt && \
 RUN cd /opt && \
     git clone https://github.com/SeanNaren/warp-ctc/
 RUN mkdir /opt/warp-ctc/build && cd /opt/warp-ctc/build && cmake .. && make
-# RUN export CUDA_HOME="/usr/local/cuda" && cd /opt/warp-ctc/pytorch_binding && /root/anaconda3/bin/python setup.py install
+RUN export CUDA_HOME="/usr/local/cuda" && cd /opt/warp-ctc/pytorch_binding && /root/anaconda3/bin/python setup.py install
+
+# ASR Scoring NIST Scoring Toolkit
+RUN cd /opt && wget http://www.openslr.org/resources/4/sctk-2.4.10-20151007-1312Z.tar.bz2 && tar jxf sctk-2.4.10-20151007-1312Z.tar.bz2 && rm sctk-2.4.10-20151007-1312Z.tar.bz2
+RUN cd /opt/sctk-2.4.10 && make config && make all && make install && make doc
 

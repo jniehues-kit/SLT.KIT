@@ -35,8 +35,8 @@ cat /data/tedlium2-xnmt/bpe${BPE_STEPS}/*.units > /data/tedlium2-xnmt/bpe${BPE_S
 characters="0123456789abcdefghijklmnopqrstuvwxyz'&-/"
 for i in $(seq 1 ${#characters});
 do
-  echo "${characters:i-1:1}\n" >> /data/tedlium2-xnmt/bpe${BPE_STEPS}/all.units.tmp
-  echo "${characters:i-1:1}@@\n" >> /data/tedlium2-xnmt/bpe${BPE_STEPS}/all.units.tmp
+  echo "${characters:i-1:1}" >> /data/tedlium2-xnmt/bpe${BPE_STEPS}/all.units.tmp
+  echo "${characters:i-1:1}@@" >> /data/tedlium2-xnmt/bpe${BPE_STEPS}/all.units.tmp
 done
 
 # write mapping of units to ids
