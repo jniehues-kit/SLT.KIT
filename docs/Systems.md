@@ -30,7 +30,6 @@
 
 ## ASR Systems
 
-### ctc-tedlium2
  * ASR system using the CTC loss trained on Byte Pair Units
  * Language: English
  * Training: The standard network uses BPE units created with 300 merge operations. You can retrain this model with BPE units created with 10000 merge operations:
@@ -57,7 +56,21 @@
 
 ### las-tedlium2
 
+* ASR system using listen-attend-spell architecture
+* Language: English
+* Training: You can train the system with the scripts
+```bash
+/opt/SLT.KIT/systems/las-tedlium2/Train.sh
+```
+* Download: You can download the system with the scripts
 
+```bash
+/opt/SLT.KIT/systems/las-tedlium2/Download.sh
+```
+Testing:
+ ```bash
+ /opt/SLT.KIT/systems/las-tedlium2/Test.sh ${testset}
+ ```
 
 ## MT/Sentence segmentation
 
