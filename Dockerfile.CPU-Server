@@ -1,0 +1,40 @@
+From ubuntu:18.04
+
+RUN apt-get update && apt-get install -y python-pip python-dev build-essential libyaml-dev git wget xml-twig-tools libsort-naturally-perl default-jre sox cmake mercurial automake libtool libboost-all-dev libpstreams-dev libpthread-stubs0-dev libxml2-dev libcurl4-openssl-dev git
+
+RUN cd /opt && \
+    git clone https://github.com/isl-mt/SLT.KIT.git
+
+RUN cd /opt && git clone https://github.com/dwd/rapidxml.git
+
+RUN cd /opt && \
+    git clone https://github.com/moses-smt/mosesdecoder.git
+
+RUN cd /opt/ && git clone https://github.com/google/sentencepiece.git && apt-get install -y pkg-config libgoogle-perftools-dev cmake&& \
+    cd /opt/sentencepiece && mkdir build && \
+    cd build && \
+    cmake .. && \
+    make -j 16 && \
+    make install && \
+    ldconfig -v
+
+RUN cd /opt && \
+    git clone https://github.com/rsennrich/subword-nmt.git
+
+
+#PyTorch
+RUN apt-get install -y libyaml-dev && \
+    pip install http://download.pytorch.org/whl/cpu/torch-0.3.1-cp27-cp27mu-linux_x86_64.whl && \
+    pip install torchvision && \
+    pip install -U numpy && \
+    pip install -U nltk
+
+#OPENNMT
+RUN mkdir -p /opt/lib && \
+    cd /opt/lib && \
+    git clone https://github.com/quanpn90/OpenNMT-py
+
+#ADD additional libraries
+
+RUN cd /opt/SLT.KIT/src/server && aclocal && autoheader && automake --add-missing && autoreconf -i && \
+    mkdir -p /opt/SLT.KIT/build && cd /opt/SLT.KIT/build && ../src/server/configure --with-rapidxml=/opt/rapidxml
