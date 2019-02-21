@@ -1,4 +1,4 @@
-SUBDIRS=services data connections
+SUBDIRS=services data connections python
 INCLUDES = $(all_includes) -I$(top_srcdir)/ -I$(top_srcdir)/services/ -I$(top_srcdir)/services/mt/ -I$(top_srcdir)/services/preprocess/ -I$(top_srcdir)/data/ -I$(top_srcdir)/connections/
 lib_LTLIBRARIES = libTS.la
 
