@@ -1,7 +1,7 @@
 #!/bin/bash
 
 export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/usr/local/lib/:/opt/lib/mobile/lib64/
-export PYTHONPATH=/opt/lib/OpenNMT-py/:/opt/subword-nmt/
+export PYTHONPATH=/opt/lib/OpenNMT-py/:/opt/subword-nmt/:/usr/local/lib/python
 
 
 echo $THREADS
