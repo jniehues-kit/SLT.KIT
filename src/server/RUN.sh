@@ -1,3 +1,6 @@
+#!/bin/bash
+
+export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/usr/local/lib/:/opt/lib/mobile/lib64/
 export PYTHONPATH=/opt/lib/OpenNMT-py/:/opt/subword-nmt/
 
 
@@ -26,4 +29,5 @@ sl=`grep "source" /tmp/Conf.xml | awk '{print $2}' | head -n 1`
 tl=`grep "target" /tmp/Conf.xml | awk '{print $2}' | head -n 1`
 name=$sl-$tl-$HOSTNAME
 echo $name
-TranslationServer /tmp/Conf.xml >& /logs/$name
+#TranslationServer /tmp/Conf.xml >& /logs/$name
+TranslationServer /tmp/Conf.xml

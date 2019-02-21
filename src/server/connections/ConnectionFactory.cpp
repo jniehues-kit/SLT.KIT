@@ -5,7 +5,7 @@ Connection * ConnectionFactory::createConnection(xml_node<> * n,PipelineManager 
     xml_node<> * c = n->first_node("type");
     string type = trim(c->value());
 #ifdef MEDIATOR
-    if(type.compare("Meditor") == 0) {
+    if(type.compare("Mediator") == 0) {
         return new MediatorConnection(n,p);
 #ifdef ICELIB
     }else if (type.compare("ICE") == 0) {

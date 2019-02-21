@@ -6,12 +6,8 @@ Service * ServiceFactory::createService(xml_node<> * n,Service * p) {
     string type = trim(c->value());
     if(type.compare("ReplaceTable") == 0) {
         return new ReplaceTable(n,p);
-#ifdef AMUNLIB
-    }else if(type.compare("AMUN") == 0) {
-        return new AMUNWrapper(n,p);
     }else if(type.compare("BPE") == 0) {
 	    return new BPEService(n,p);
-#endif
 #ifdef LAMTRAMLIB
     }else if(type.compare("Lamtram") == 0) {
         return new LamtramWrapper(n,p);

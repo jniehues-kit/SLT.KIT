@@ -21,7 +21,7 @@ Smartcase::Smartcase(xml_node<> * desc,Service * p) :Service(desc,p) {
       }
       string path = string(buf);
       string command = ""; 
-      command = string("perl ")+path.substr(0,path.find_last_of('/'))+string(MOSES_CASE_COMMAND)+string(" --model ")+model;
+      command = string("perl ")+string(MOSES_CASE_COMMAND)+string(" --model ")+model;
       cout << command << endl;
       mosesStream.open( command.c_str(), std::ios_base::out | std::ios_base::in );
     }
