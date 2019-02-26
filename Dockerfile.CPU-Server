@@ -56,3 +56,5 @@ RUN cd /opt/lib && \
 
 RUN cd /opt/SLT.KIT/src/server && autoreconf -i && \
     mkdir -p /opt/SLT.KIT/build && cd /opt/SLT.KIT/build && ../src/server/configure --with-rapidxml=/opt/rapidxml --with-mongo=/usr/local/ --enable-lmdb && make && make install
+
+CMD /opt/SLT.KIT/src/server/RUN.sh
