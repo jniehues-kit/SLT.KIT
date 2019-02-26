@@ -1,6 +1,6 @@
 From ubuntu:18.04
 
-RUN apt-get update && apt-get install -y python-pip python-dev build-essential libyaml-dev git wget xml-twig-tools libsort-naturally-perl default-jre sox cmake mercurial automake libtool libboost-all-dev libpstreams-dev libpthread-stubs0-dev libxml2-dev libcurl4-openssl-dev git
+RUN apt-get update && apt-get install -y python-pip python-dev build-essential libyaml-dev git wget xml-twig-tools libsort-naturally-perl default-jre sox cmake mercurial automake libtool libboost-all-dev libpstreams-dev libpthread-stubs0-dev libxml2-dev libcurl4-openssl-dev git libssl-dev
 
 RUN cd /opt && \
     git clone https://github.com/isl-mt/SLT.KIT.git
@@ -8,7 +8,8 @@ RUN cd /opt && \
 RUN cd /opt && git clone https://github.com/dwd/rapidxml.git
 
 RUN cd /opt && \
-    git clone https://github.com/moses-smt/mosesdecoder.git
+    git clone https://github.com/moses-smt/mosesdecoder.git && \
+    sed -e "s/my $sentence_start = 1;/my $sentence_start = 1;\n$|++;/g" /opt/mosesdecoder/scripts/recaser/truecase.perl
 
 RUN cd /opt/ && git clone https://github.com/google/sentencepiece.git && apt-get install -y pkg-config libgoogle-perftools-dev cmake&& \
     cd /opt/sentencepiece && mkdir build && \
@@ -34,7 +35,24 @@ RUN mkdir -p /opt/lib && \
     cd /opt/lib && \
     git clone https://github.com/quanpn90/OpenNMT-py
 
+
+#LMDB
+RUN apt-get install -y liblmdb-dev
+RUN cd /opt/lib && \
+    git clone https://github.com/bendiken/lmdbxx.git && \
+    cd lmdbxx/ && make install
+
+#MONGODB
+
+RUN cd /opt/lib && \
+    git clone git://github.com/mongodb/mongo-c-driver.git && \
+    cd mongo-c-driver && git reset --hard bfcbed2aaed6082f6eaacf490858bb73eb1c042b && ./autogen.sh && make install -j 16 && cd .. && \
+    git clone https://github.com/mongodb/mongo-cxx-driver.git  --branch releases/stable && \
+    cd mongo-cxx-driver/build && git reset --hard 8c6aa6d37f0cf2d00eef83d98bf69ca088dee035 && \
+    cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local .. && make EP_mnmlstc_core && make && make install
+
+
 #ADD additional libraries
 
-RUN cd /opt/SLT.KIT/src/server && aclocal && autoheader && automake --add-missing && autoreconf -i && \
-    mkdir -p /opt/SLT.KIT/build && cd /opt/SLT.KIT/build && ../src/server/configure --with-rapidxml=/opt/rapidxml
+RUN cd /opt/SLT.KIT/src/server && autoreconf -i && \
+    mkdir -p /opt/SLT.KIT/build && cd /opt/SLT.KIT/build && ../src/server/configure --with-rapidxml=/opt/rapidxml --with-mongo=/usr/local/ --enable-lmdb && make && make install
