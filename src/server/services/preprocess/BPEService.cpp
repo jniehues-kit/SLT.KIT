@@ -9,34 +9,11 @@ BPEService::BPEService(xml_node<> * desc,Service * p) : Service(desc,p) {
 
 
     
-    string module = "apply_bpe";
-    string className = "BPE";
+    string module = "BPEService";
+    string className = "BPEService";
     string methodeName = "process_line";
     PyGILState_STATE gstate;
     gstate = PyGILState_Ensure();
-
-   PyObject * pcodec   = PyImport_ImportModule("codecs");
-    if(pcodec == NULL) {
-        cerr << "Cannot load Python modul: codecs" << endl;
-        exit(-1);
-    }
-   PyObject* open = PyObject_GetAttrString(pcodec,"open");
-    if(open == NULL) {
-        cerr << "Cannot load Python method: open" << endl;
-        exit(-1);
-    }
-    PyObject * codec_param  = Py_BuildValue("(sss)", codec.c_str(),"r","utf-8");
-    if(codec_param == NULL) {
-      cerr << "Cannot load Python string: " << codec << endl;
-        exit(-1);
-    }
-   PyObject* codec_file = PyObject_CallObject(open, codec_param);
-    if(codec_file == NULL) {
-        cerr << "Cannot create python file" << endl;
-      PyErr_PrintEx(0);
-        exit(-1);
-    }
-
 
     
     PyObject * pmod   = PyImport_ImportModule(module.c_str());
@@ -50,15 +27,12 @@ BPEService::BPEService(xml_node<> * desc,Service * p) : Service(desc,p) {
         exit(-1);
     }
 
-    //PyObject * pParam  = Py_BuildValue("o", codec_file);
-    PyObject* const pParam = PyTuple_New(1);
-    PyTuple_SetItem(pParam, 0, codec_file);
-    //PyObject * pParam  = PyTuple_Pack(codec_file);
-    if(pParam == NULL) {
-      cerr << "Cannot build value: " << codec << endl;
+    PyObject * codec_param  = Py_BuildValue("(s)",codec.c_str());
+    if(codec_param == NULL) {
+      cerr << "Cannot load Python string: " << codec << endl;
         exit(-1);
     }
-    PyObject * pinst  = PyEval_CallObject(pclass, pParam);
+    PyObject * pinst  = PyEval_CallObject(pclass, codec_param);
     if(pinst == NULL) {
       cerr << "Cannot init object from class:" << className << endl;
       PyErr_PrintEx(0);
