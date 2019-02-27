@@ -16,15 +16,15 @@ SpeechPrepro::SpeechPrepro(xml_node<> * desc,Service * p) :Service(desc,p) {
     string command = ""; 
 
     if (language == "en") {
-       path = path.substr(0,path.find_last_of('/'))+string(EN_SPEECH_PREPRO_COMMAND); 
+       path = string(EN_SPEECH_PREPRO_COMMAND); 
        TRACEPRINT(3) cout << "Path:" << path << endl;
        command = string("perl ")+path; 	
     } else if (language == "de"){ 
-       path = path.substr(0,path.find_last_of('/'))+string(DE_SPEECH_PREPRO_COMMAND);
+       path = string(DE_SPEECH_PREPRO_COMMAND);
        TRACEPRINT(3) cout << "Path:" << path << endl;
        command = string("perl ")+path;
     } else { 
-       path = path.substr(0,path.find_last_of('/'))+string(SPEECH_PREPRO_COMMAND);
+       path = string(SPEECH_PREPRO_COMMAND);
        TRACEPRINT(3) cout << "Path:" << path << endl;
        command = string("perl ")+path+string(" -lang=")+language;
     } 

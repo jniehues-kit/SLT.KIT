@@ -11,9 +11,9 @@ using redi::pstream;
 #include "rapidxml_print.hpp"
 #include "Service.h"
 
-#define SPEECH_PREPRO_COMMAND "/../lib/perl/prepro_Speech.pl"
-#define EN_SPEECH_PREPRO_COMMAND "/../lib/perl/speech_prepro_en.pl" 
-#define DE_SPEECH_PREPRO_COMMAND "/../lib/perl/speech_prepro_de.pl" 
+#define SPEECH_PREPRO_COMMAND "/usr/local/lib/perl/prepro_Speech.pl"
+#define EN_SPEECH_PREPRO_COMMAND "/usr/local/lib/perl/speech_prepro_en.pl" 
+#define DE_SPEECH_PREPRO_COMMAND "/usr/local/lib/perl/speech_prepro_de.pl" 
 
 using namespace std;
 using namespace rapidxml;
