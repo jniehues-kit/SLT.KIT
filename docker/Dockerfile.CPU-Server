@@ -46,9 +46,12 @@ RUN cd /opt/lib && \
     cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local .. && make EP_mnmlstc_core && make && make install
 
 
-#ADD additional libraries
+#MEDIATOR LIBRARY
+RUN git clone https://github.com/ELITR/pv-platform-sample-connector.git
 
 RUN cd /opt/SLT.KIT/src/server && autoreconf -i && \
-    mkdir -p /opt/SLT.KIT/build && cd /opt/SLT.KIT/build && ../src/server/configure --with-rapidxml=/opt/rapidxml --with-mongo=/usr/local/ --enable-lmdb && make && make install
+    mkdir -p /opt/SLT.KIT/build && cd /opt/SLT.KIT/build && \
+    export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/usr/local/lib/:/opt/pv-platform-sample-connector//Linux/lib64/ && \
+    ../src/server/configure --with-rapidxml=/opt/rapidxml --with-mongo=/usr/local/ --enable-lmdb --with-mediator=/opt/pv-platform-sample-connector/ && make && make install
 
 CMD /opt/SLT.KIT/src/server/RUN.sh

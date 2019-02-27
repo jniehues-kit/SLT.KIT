@@ -34,7 +34,9 @@ RUN cd /opt/lib/ && \
 
 
 RUN cd /opt/SLT.KIT/src/server && autoreconf -i && \
-    mkdir -p /opt/SLT.KIT/build && cd /opt/SLT.KIT/build && ../src/server/configure --with-rapidxml=/opt/rapidxml --with-mongo=/usr/local/ --enable-lmdb --with-lamtram=/opt/lib/lamtram/build/ --with-dynet=/opt/lib/cnn/build/ --with-eigen=/opt/lib/eigen/build/include/eigen3/ \
+    mkdir -p /opt/SLT.KIT/build && cd /opt/SLT.KIT/build && \
+    export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/usr/local/lib/:/opt/pv-platform-sample-connector//Linux/lib64/ && \
+    ../src/server/configure --with-rapidxml=/opt/rapidxml --with-mongo=/usr/local/ --enable-lmdb --with-lamtram=/opt/lib/lamtram/build/ --with-dynet=/opt/lib/cnn/build/ --with-eigen=/opt/lib/eigen/build/include/eigen3/ --with-mediator=/opt/pv-platform-sample-connector/ \
     && make && make install
 
 CMD /opt/SLT.KIT/src/server/RUN.sh
