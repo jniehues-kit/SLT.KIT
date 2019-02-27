@@ -29,5 +29,5 @@ sl=`grep "source" /tmp/Conf.xml | awk '{print $2}' | head -n 1`
 tl=`grep "target" /tmp/Conf.xml | awk '{print $2}' | head -n 1`
 name=$sl-$tl-$HOSTNAME
 echo $name
-#TranslationServer /tmp/Conf.xml >& /logs/$name
-TranslationServer /tmp/Conf.xml
+TranslationServer /tmp/Conf.xml >& /logs/$name
+
