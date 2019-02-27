@@ -147,26 +147,6 @@ fi
 
 
 
-# introduce the optional configure parameter for a non-standard install prefix of XXX 
-AC_ARG_WITH([ice], 
-    [AS_HELP_STRING([--with-ice=prefix], 
-        [try this for a non-standard install with ice mediator])], 
-    [icePATHSET=1], 
-    [icePATHSET=0]) 
-         
-# if optional parameter used, extend path flags for compliler and linker 
-if test $icePATHSET = 1 ; then 
-    # extend the compiler and linker flags according to the path set 
-    LIBS="$LIBS -lIceMediator -lGlacier2 -lIce -lIceUtil"
-    INCL=`echo $with_ice | sed -e "s|:|/include/ -I|g" -e "s|$|/include/|g"`
-    LD=`echo $with_ice | sed -e "s|:|/lib/ -L|g" -e "s|$|/lib/|g"`
-    AM_CXXFLAGS="$AM_CXXFLAGS -I$INCL" 
-    AM_LDFLAGS="$AM_LDFLAGS -L$LD" 
-    AC_DEFINE(ICELIB,"1",[Use ICE Libaray])
-    #AM_LDFLAGS="$AM_LDFLAGS -L$with_srilm/lib/macosx" 
-fi 
-
-
 AC_ARG_WITH([openblas], 
     [AS_HELP_STRING([--with-openblas=prefix], 
         [try this for a non-standard install with NMT])], 

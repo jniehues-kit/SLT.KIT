@@ -7,19 +7,6 @@ Connection * ConnectionFactory::createConnection(xml_node<> * n,PipelineManager 
 #ifdef MEDIATOR
     if(type.compare("Mediator") == 0) {
         return new MediatorConnection(n,p);
-#ifdef ICELIB
-    }else if (type.compare("ICE") == 0) {
-      return new ICEConnection(n,p);
-#endif
-    }else {
-        cerr << "Unkown Connection: " << type << endl;
-        exit(-1);
-    }
-#endif
-
-#ifdef ICELIB
-    if (type.compare("ICE") == 0) {
-      return new ICEConnection(n,p);
     }else {
         cerr << "Unkown Connection: " << type << endl;
         exit(-1);

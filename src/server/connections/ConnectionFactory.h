@@ -17,9 +17,6 @@ using namespace std;
 #include "rapidxml_print.hpp"
 
 #include "Connection.h"
-#ifdef ICELIB
-#include "ICEConnection.h"
-#endif
 #ifdef MEDIATOR
 #include "MediatorConnection.h"
 #endif
