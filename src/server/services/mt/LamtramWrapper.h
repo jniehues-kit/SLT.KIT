@@ -23,7 +23,7 @@
 #include "rapidxml_print.hpp"
 #include "Service.h"
 
-#include <pstream.h>
+#include <pstreams/pstream.h>
 using redi::pstream;
 
 
