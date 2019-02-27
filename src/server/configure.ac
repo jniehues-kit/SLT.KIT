@@ -138,8 +138,8 @@ AC_ARG_WITH([mediator],
 if test $mediatorPATHSET = 1 ; then
     # extend the compiler and linker flags according to the path set
     AM_CXXFLAGS="$AM_CXXFLAGS -I$with_mediator/include/"
-    AM_LDFLAGS="$AM_LDFLAGS -L$with_mediator/lib64/"
-    LIBS="-lMCloud -lJibbigoShared -lxml2 -lcurl $LIBS"
+    AM_LDFLAGS="$AM_LDFLAGS -L$with_mediator/lib64/ -L$with_mediator/Linux/lib64"
+    LIBS="-lm -lMCloud -lxml2 -lcurl $LIBS"
     AC_DEFINE(MEDIATOR,"1",[Use Mediator])
 fi
 
