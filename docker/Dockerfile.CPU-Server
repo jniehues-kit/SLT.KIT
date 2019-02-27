@@ -9,7 +9,7 @@ RUN cd /opt && git clone https://github.com/dwd/rapidxml.git
 
 RUN cd /opt && \
     git clone https://github.com/moses-smt/mosesdecoder.git && \
-    sed -e "s/my $sentence_start = 1;/my $sentence_start = 1;\n$|++;/g" /opt/mosesdecoder/scripts/recaser/truecase.perl
+    sed -i 's/my $sentence_start = 1;/my $sentence_start = 1;\n$|++;/g' /opt/mosesdecoder/scripts/recaser/truecase.perl
 
 RUN cd /opt/ && git clone https://github.com/google/sentencepiece.git && apt-get install -y pkg-config libgoogle-perftools-dev cmake&& \
     cd /opt/sentencepiece && mkdir build && \
@@ -29,12 +29,6 @@ RUN apt-get install -y libyaml-dev && \
     pip install torchvision && \
     pip install -U numpy && \
     pip install -U nltk
-
-#OPENNMT
-RUN mkdir -p /opt/lib && \
-    cd /opt/lib && \
-    git clone https://github.com/quanpn90/OpenNMT-py
-
 
 #LMDB
 RUN apt-get install -y liblmdb-dev

@@ -1,0 +1,8 @@
+From slt.kit
+
+#OPENNMT
+RUN mkdir -p /opt/lib && \
+    cd /opt/lib && \
+    git clone https://github.com/quanpn90/OpenNMT-py
+
+CMD /opt/SLT.KIT/src/server/RUN.sh
