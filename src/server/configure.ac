@@ -9,7 +9,7 @@ AM_INIT_AUTOMAKE()
 
 AC_PROG_CXX
 AC_CONFIG_HEADERS([config.h])
-AC_CONFIG_FILES(Makefile connections/Makefile data/Makefile services/Makefile services/mt/Makefile services/preprocess/Makefile python/Makefile)
+AC_CONFIG_FILES(Makefile connections/Makefile data/Makefile services/Makefile services/mt/Makefile services/preprocess/Makefile python/Makefile perl/Makefile)
 
 AC_LANG(C++)
 
