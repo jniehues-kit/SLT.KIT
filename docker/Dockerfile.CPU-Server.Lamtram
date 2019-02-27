@@ -1,4 +1,4 @@
-From kit.slt
+From kit.slt-server≈
 
 # Eigen, update version as needed
 RUN echo "[ui]" > ~/.hgrc && echo "tls = False" >> ~/.hgrc

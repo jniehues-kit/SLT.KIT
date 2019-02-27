@@ -1,4 +1,4 @@
-From slt.kit
+From slt.kit-server
 
 #OPENNMT
 RUN mkdir -p /opt/lib && \
