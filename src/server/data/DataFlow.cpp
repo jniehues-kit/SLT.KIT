@@ -9,7 +9,7 @@ DataFlow* DataFlow::create(xml_node<> * desc) {
         if (strcmp(node->name(), "type") == 0) {
             string t = trim(node->value());
             if(t.compare("Sentence") == 0) {
-                return new SentenceDataFlow();
+                return new SentenceDataFlow(desc);
             }else if(t.compare("Word") == 0) {
                 return new WordDataFlow(desc);
             }else {

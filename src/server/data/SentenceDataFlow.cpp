@@ -1,7 +1,7 @@
 #include "SentenceDataFlow.h"
 
 
-SentenceDataFlow::SentenceDataFlow() {
+SentenceDataFlow::SentenceDataFlow(xml_node<> * desc) {
 
     maxCurrentSent = 0;
 
@@ -14,6 +14,9 @@ SentenceDataFlow::SentenceDataFlow() {
     punc.insert(';');
     punc.insert('?');
 
+    noIntermediateOutput = 0;
+    parseXML(desc);
+    
 }
 
 void SentenceDataFlow::input(const Segment & in) {
@@ -183,7 +186,16 @@ void SentenceDataFlow::getPreData(Text & result) {
 
 
 void SentenceDataFlow::process(vector<Segment> & segments,Service * service) {
-    for(int i = 0; i < segments.size(); i++) {
+
+  if(noIntermediateOutput == 1) {
+      for(int i = segments.size()-1; i >= 0; i--) {
+	if(segments[i].type != FINAL) {
+	  segments.erase(segments.begin()+i);
+	}
+      }
+  }
+
+  for(int i = 0; i < segments.size(); i++) {
         service->process(&segments[i]);
         cout << i << "th segment (" << segments[i].type <<"):" << segments[i].startTime << " - " << segments[i].stopTime << " :" << segments[i].text << endl;
     }
@@ -213,4 +225,14 @@ void SentenceDataFlow::process(vector<Segment> & segments,Service * service) {
 
 bool SentenceDataFlow::checkNewData() {
     return preInput.stopTime > lastStopTime;
+}
+
+void SentenceDataFlow::parseXML(xml_node<> * desc) {
+
+    for (xml_node<> * node = desc->first_node(); node ; node = node->next_sibling()) {
+        if (strcmp(node->name(), "noIntermediateOutput") == 0) {
+            noIntermediateOutput = atoi(node->value());
+        }
+    }
+
 }

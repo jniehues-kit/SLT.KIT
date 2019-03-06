@@ -33,14 +33,16 @@ private:
 
     int maxCurrentSent;
     int currentSentWordCount;
+    int noIntermediateOutput;
 
     int lastStopTime;
 
     bool checkNewData();
     void getPreData(Text & result);
+    void parseXML(xml_node<> * desc);
 
 public:
-    SentenceDataFlow();
+    SentenceDataFlow(xml_node<> * desc);
     ~SentenceDataFlow();
     void input(const Segment & in);
     void markFinal();
