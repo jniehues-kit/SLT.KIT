@@ -11,6 +11,7 @@ WordDataFlow::WordDataFlow(xml_node<> * desc) {
     maxContext = 4;
     paragraphSize = 5;
     puncCount = 0;
+    noIntermediateOutput = 0;
     parseXML(desc);
     puncChars.insert(".");
     puncChars.insert("!");
@@ -20,7 +21,6 @@ WordDataFlow::WordDataFlow(xml_node<> * desc) {
     puncChars.insert("<br>");
     puncChars.insert("<br><br>");
     lastWordPunc = true;
-
 
 }
 
@@ -228,7 +228,14 @@ void WordDataFlow::process(vector<Segment> & segments,Service * service) {
         }
     }
 
-
+    if(noIntermediateOutput == 1) {
+      for(int i = segments.size()-1; i >= 0; i--) {
+	if(segments[i].type != FINAL) {
+	  segments.erase(segments.begin()+i);
+	}
+      }
+    }
+    
     for(int i = 0; i < segments.size(); i++) {
         cout << i << "th segment(" << segments[i].type <<"):" << segments[i].startTime << " - " << segments[i].stopTime << " :" << segments[i].text << endl;
     }
@@ -292,6 +299,8 @@ void WordDataFlow::parseXML(xml_node<> * desc) {
             maxContext = atoi(node->value());
         }else if (strcmp(node->name(), "paragraphSize") == 0) {
             paragraphSize = atoi(node->value());
+        }else if (strcmp(node->name(), "noIntermediateOutput") == 0) {
+            noIntermediateOutput = atoi(node->value());
         }
     }
 

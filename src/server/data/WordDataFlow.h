@@ -41,6 +41,7 @@ private:
     int maxContext;
     int paragraphSize;
     int puncCount;
+    int noIntermediateOutput;
 
     bool checkNewData();
 
