@@ -15,42 +15,21 @@ my $offset = 20;
 my $rand; 
 my $text = "" ; 
 
+
+$rand = int(rand($range)) + $offset;
+
 while (my $line = <INPUT>){
    chomp($line);
    my @words = split(/\s\s*/,$line); 
    foreach my $word(@words){
+       if($rand <= 0 && $word !~ /\p{P}/) {
+	   print "\n";
+	   $rand = int(rand($range)) + $offset;
+       }
        chomp($word); 
-       $text .= $word;
-       $text .= " ";
+       print $word;
+       print " ";
+       $rand--
    } 
-}
-
-my @words = split(/\s\s*/,$text); 
-my $i = 0; 
-my $j; 
-
-my $out = ""; 
-
-#print scalar @words, "\n"; 
-
-while ($i < scalar @words){
-     
-    $rand = int(rand($range)) + $offset;
-    #print $i, "#"; 
-
-    for ($j = $i; $j < $rand + $i ; $j++){
-        print $words[$j];
-        print " ";
-    }
-    $i = $i + $rand;  
-    
-    #print $i, "#";
-    while ($words[$i] =~ /\p{P}/){
-	print $words[$i], " ";
-	$i++;
-    } 
-
-    print "\n";
-   
 }
  
