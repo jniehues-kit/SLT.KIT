@@ -8,7 +8,7 @@ if [ $# -ne 2 ]; then
     size=$3
 fi
 layer=8
-innersize=`expr $layer * 4`
+innersize=$((layer*4))
 
 if [ -z "$BASEDIR" ]; then
     BASEDIR=/
@@ -22,6 +22,12 @@ if [ -z "$GPU" ]; then
     GPU=0
 fi
 
+if [ $GPU == -1 ]; then
+    gpu_string=""
+else
+    gpu_string="-gpus "$GPU
+fi
+
 mkdir -p $BASEDIR/tmp/${name}/
 mkdir -p $BASEDIR/model/${name}/
 mkdir -p $BASEDIR/model/${name}/checkpoints/
@@ -33,7 +39,7 @@ for l in s t
 do
     for set in train valid
     do
-	echo "" > $BASEDIR/tmp/${name}/$set.$l
+	echo -n "" > $BASEDIR/tmp/${name}/$set.$l
 	for f in $BASEDIR/data/${input}/${set}/*\.${l}
 	do
     
@@ -42,19 +48,15 @@ do
    done
 done
 
-
-
-python $NMTDIR/preprocess.py \
+python3 $NMTDIR/preprocess.py \
        -train_src $BASEDIR/tmp/${name}/train.s \
        -train_tgt $BASEDIR/tmp/${name}/train.t \
        -valid_src $BASEDIR/tmp/${name}/valid.s \
        -valid_tgt $BASEDIR/tmp/${name}/valid.t \
-       -save_data $BASEDIR/model/${name}/train \
-       -src_langs s \
-       -tgt_langs t 
+       -save_data $BASEDIR/model/${name}/train -format bin
 
 
-python -u $NMTDIR/train.py  -data $BASEDIR/tmp/${name}/train -data_format bin \
+python3 -u $NMTDIR/train.py  -data $BASEDIR/model/${name}/train -data_format bin \
        -save_model $BASEDIR/model/${name}/checkpoints/model \
        -model transformer \
        -batch_size_words 3584 \
@@ -62,7 +64,7 @@ python -u $NMTDIR/train.py  -data $BASEDIR/tmp/${name}/train -data_format bin \
        -batch_size_sents 9999 \
        -batch_size_multiplier 8 \
        -checkpointing 0 \
-       -layers $lazer \
+       -layers $layer \
        -model_size $size \
        -inner_size $innersize \
        -n_heads 8 \
@@ -70,7 +72,6 @@ python -u $NMTDIR/train.py  -data $BASEDIR/tmp/${name}/train -data_format bin \
        -attn_dropout 0.2 \
        -word_dropout 0.1 \
        -emb_dropout 0.2 \
-       -residual_dropout 0.2 \
        -label_smoothing 0.1 \
        -epochs 64 \
        -learning_rate 2 \
@@ -82,19 +83,19 @@ python -u $NMTDIR/train.py  -data $BASEDIR/tmp/${name}/train -data_format bin \
        -tie_weights \
        -seed 8877 \
        -log_interval 1000 \
-       -gpus $GPU 2>&1 $BASEDIR/model/${name}/train.log
+       $gpu_string &> $BASEDIR/model/${name}/train.log
 
 checkpoints=""
 
-for f in $BASEDIR/model/${name}/checkpoint/model_ppl_*
+for f in `ls $BASEDIR/model/${name}/checkpoints/model_ppl_*`
 do
-    checkpoints=$checkpoints"$BASEDIR/model/${name}/checkpoint/${f}|"
+    checkpoints=$checkpoints"${f}|"
 done
+checkpoints=`echo $checkpoints | sed -e "s/|$//g"`
 
 
-
-python -u $NMTDIR/average_checkpoints.py -gpu $GPU \
+python3 -u $NMTDIR/average_checkpoints.py $gpu_string \
                                     -models $checkpoints \
-                                    -output $MODELDIR/model.pt
+                                    -output $BASEDIR/model/${name}/model.pt
 
-#rm -r /tmp/${name}/
+rm -r /tmp/${name}/

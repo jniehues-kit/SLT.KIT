@@ -1,0 +1,15 @@
+From slt.kit-server
+
+#PyTorch
+RUN apt-get install -y libyaml-dev python3-pip && \
+    pip3 install https://download.pytorch.org/whl/cpu/torch-1.1.0-cp36-cp36m-linux_x86_64.whl && \
+    pip3 install torchvision && \
+    pip3 install -U numpy && \
+    pip3 install -U nltk && pip3 install h5py
+
+#OPENNMT
+RUN mkdir -p /opt/lib && \
+    cd /opt/lib && \
+    git clone https://github.com/quanpn90/NMTGMinor && cd NMTGMinor && git checkout audio-encoder
+
+CMD /opt/SLT.KIT/src/server/RUN.sh

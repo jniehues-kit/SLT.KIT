@@ -46,7 +46,7 @@ cat $BASEDIR/tmp/${name}/tok/train/${f##*/} >> $BASEDIR/tmp/${name}/corpus.tok.t
 done
 for f in $BASEDIR/data/${input}/valid/*\.t
 do
-cat $f | perl $BASEDIR/opt/mosesdecoder/scripts/tokenizer/tokenizer.perl -l ${tl} > $BASEDIR/tmp/${name}/tok/valid/${f##*/}
+cat $f | perl $MOSES/opt/mosesdecoder/scripts/tokenizer/tokenizer.perl -l ${tl} > $BASEDIR/tmp/${name}/tok/valid/${f##*/}
 done
 
 
@@ -61,7 +61,7 @@ for set in valid train
 do
 for f in $BASEDIR/tmp/${name}/tok/$set/*\.s
 do
-cat $f | $BASEDIR/opt/mosesdecoder/scripts/recaser/truecase.perl --model $BASEDIR/model/${name}/truecase-model.s > $BASEDIR/tmp/${name}/sc/$set/${f##*/}
+cat $f | $MOSESDIR/scripts/recaser/truecase.perl --model $BASEDIR/model/${name}/truecase-model.s > $BASEDIR/tmp/${name}/sc/$set/${f##*/}
 done
 done
 
@@ -88,7 +88,7 @@ done
 ##BPE
 
 
-$BPEDIR/learn_joint_bpe_and_vocab.py --input $BASEDIR/tmp/${name}/corpus.sc.s $BASEDIR/tmp/${name}/corpus.sc.t -s 40000 -o $BASEDIR/model/${name}/codec --write-vocabulary $BASEDIR/model/${name}/voc.s $BASEDIR/model/${name}/voc.t
+$BPEDIR/subword_nmt/learn_joint_bpe_and_vocab.py --input $BASEDIR/tmp/${name}/corpus.sc.s $BASEDIR/tmp/${name}/corpus.sc.t -s 40000 -o $BASEDIR/model/${name}/codec --write-vocabulary $BASEDIR/model/${name}/voc.s $BASEDIR/model/${name}/voc.t
 
 
 for set in valid train
@@ -96,7 +96,7 @@ do
 for f in $BASEDIR/tmp/${name}/sc/$set/*\.s
 do
 echo $f
-$BPEDIR/apply_bpe.py -c $BASEDIR/model/${name}/codec --vocabulary $BASEDIR/model/${name}/voc.s --vocabulary-threshold 50 < $f > $BASEDIR/data/${name}/$set/${f##*/}
+$BPEDIR/subword_nmt/apply_bpe.py -c $BASEDIR/model/${name}/codec --vocabulary $BASEDIR/model/${name}/voc.s --vocabulary-threshold 50 < $f > $BASEDIR/data/${name}/$set/${f##*/}
 done
 done
 
@@ -105,7 +105,7 @@ do
 for f in $BASEDIR/tmp/${name}/sc/$set/*\.t
 do
 echo $f
-$BPEDIR/apply_bpe.py -c $BASEDIR/model/${name}/codec --vocabulary $BASEDIR/model/${name}/voc.t --vocabulary-threshold 50 < $f > $BASEDIR/data/${name}/$set/${f##*/}
+$BPEDIR/subword_nmt/apply_bpe.py -c $BASEDIR/model/${name}/codec --vocabulary $BASEDIR/model/${name}/voc.t --vocabulary-threshold 50 < $f > $BASEDIR/data/${name}/$set/${f##*/}
 done
 done
 
