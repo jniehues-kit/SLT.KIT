@@ -23,9 +23,15 @@ if [ -z "$GPU" ]; then
 fi
 
 if [ $GPU == -1 ]; then
-    gpu_string=""
+    gpu_string_train=""
+    gpu_string_avg=""
 else
-    gpu_string="-gpus "$GPU
+    gpu_string_train="-gpus "$GPU
+    gpu_string_avg="-gpus "$GPU
+fi
+
+if [ ! -z "$FP16" ]; then
+    gpu_string_train=$gpu_string_train" -fp16"
 fi
 
 mkdir -p $BASEDIR/tmp/${name}/
@@ -83,7 +89,7 @@ python3 -u $NMTDIR/train.py  -data $BASEDIR/model/${name}/train -data_format bin
        -tie_weights \
        -seed 8877 \
        -log_interval 1000 \
-       $gpu_string &> $BASEDIR/model/${name}/train.log
+       $gpu_string_train &> $BASEDIR/model/${name}/train.log
 
 checkpoints=""
 
@@ -94,7 +100,7 @@ done
 checkpoints=`echo $checkpoints | sed -e "s/|$//g"`
 
 
-python3 -u $NMTDIR/average_checkpoints.py $gpu_string \
+python3 -u $NMTDIR/average_checkpoints.py $gpu_string_avg \
                                     -models $checkpoints \
                                     -output $BASEDIR/model/${name}/model.pt
 
