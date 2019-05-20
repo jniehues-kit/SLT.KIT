@@ -46,7 +46,7 @@ cat $BASEDIR/tmp/${name}/tok/train/${f##*/} >> $BASEDIR/tmp/${name}/corpus.tok.t
 done
 for f in $BASEDIR/data/${input}/valid/*\.t
 do
-cat $f | perl $MOSES/opt/mosesdecoder/scripts/tokenizer/tokenizer.perl -l ${tl} > $BASEDIR/tmp/${name}/tok/valid/${f##*/}
+cat $f | perl $MOSESDIR/scripts/tokenizer/tokenizer.perl -l ${tl} > $BASEDIR/tmp/${name}/tok/valid/${f##*/}
 done
 
 
