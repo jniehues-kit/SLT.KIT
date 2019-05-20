@@ -4,18 +4,44 @@
 set=$1
 name=$2
 
-mkdir -p /data/${name}/eval
-mkdir -p /data/${name}/valid
+if [ -z "$BASEDIR" ]; then
+    BASEDIR=/
+fi
+
+if [ -z "$MOSESDIR" ]; then
+    MOSESDIR=/opt/mosesdecoder/
+fi
+
+if [ -z "$BPEDIR" ]; then
+    BPEDIR=/opt/subword-nmt/
+fi
+
+
+
+mkdir -p $BASEDIR/data/${name}/eval
+mkdir -p $BASEDIR/data/${name}/valid
 
 ##TOKENIZE
 ##SMARTCASE
 ##BPE
 
-cat /data/orig/eval/$set/IWSLT.$set/IWSLT.TED.$set.$sl-$tl.$sl.xml | \
-    grep "<seg id" | sed -e "s/<[^>]*>//g" | \
-    perl /opt/mosesdecoder/scripts/tokenizer/tokenizer.perl -l ${sl} | \
-    /opt/mosesdecoder/scripts/recaser/truecase.perl --model /model/${name}/truecase-model.s | \
-    /opt/subword-nmt/apply_bpe.py -c /model/${name}/codec --vocabulary /model/${name}/voc.s --vocabulary-threshold 50 \
-				  > /data/${name}/eval/manualTranscript.$set.s
+xml=0
+if [ -f $BASEDIR/data/orig/eval/$set/IWSLT.$set/IWSLT.TED.$set.$sl-$tl.$sl.xml ]; then
+    inFile=$BASEDIR/data/orig/eval/$set/IWSLT.$set/IWSLT.TED.$set.$sl-$tl.$sl.xml
+    xml=1
+elif [ -f $BASEDIR/data/orig/eval/$set/$set.$sl ]; then
+    inFile=$BASEDIR/data/orig/eval/$set/$set.$sl
+    xml=0
+fi
+
+xmlcommand=""
+if [ xml == 1 ]; then
+   xmlcommand='grep "<seg id" | sed -e "s/<[^>]*>//g" |'
+fi
+cat $inFile | $xmlcommand\
+    perl $MOSESDIR/scripts/tokenizer/tokenizer.perl -l ${sl} | \
+    $MOSESDIR/scripts/recaser/truecase.perl --model $BASEDIR/model/${name}/truecase-model.s | \
+    $BPEDIR/apply_bpe.py -c $BASEDIR/model/${name}/codec --vocabulary $BASEDIR/model/${name}/voc.s --vocabulary-threshold 50 \
+				  > $BASEDIR/data/${name}/eval/manualTranscript.$set.s
 
 
