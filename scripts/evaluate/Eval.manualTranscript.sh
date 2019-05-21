@@ -13,7 +13,7 @@ if [ -z "$MOSESDIR" ]; then
 fi
 
 if [ -z "$SLTKITDIR" ]; then
-    SLTKIT=/opt/SLT.KIT
+    SLTKITDIR=/opt/SLT.KIT
 fi
 
 if [ -z "$TERDIR" ]; then
@@ -43,7 +43,7 @@ grep "<seg id" $reference | sed -e "s/<[^>]*>//g" > $BASEDIR/tmp/eval.manual/$se
 sed -e "s/@@ //g" $BASEDIR/data/$output/eval/manualTranscript.$set.t | sed -e "s/@@$//g" | sed -e "s/&apos;/'/g" -e 's/&#124;/|/g' -e "s/&amp;/&/g" -e 's/&lt;/>/g' -e 's/&gt;/>/g' -e 's/&quot;/"/g' -e 's/&#91;/[/g' -e 's/&#93;/]/g' | perl -nle 'print ucfirst' > $BASEDIR/tmp/eval.manual/$set.hyp
 
 sed -e "s/^\s*$/_EMPTY_/g" $BASEDIR/tmp/eval.manual/$set.hyp > $BASEDIR/tmp/eval.manual/$set.no-empty.hyp
-cat $BASEDIR/tmp/eval.manual/$set.hyp | perl $SLTKIT/scripts/evaluate/wrap-xml.perl $tl $BASEDIR/data/orig/eval/$set/IWSLT.$set/IWSLT.TED.$set.$sl-$tl.$sl.xml $systemName > $BASEDIR/tmp/eval.manual/$set.xml
+cat $BASEDIR/tmp/eval.manual/$set.hyp | perl $SLTKITDIR/scripts/evaluate/wrap-xml.perl $tl $BASEDIR/data/orig/eval/$set/IWSLT.$set/IWSLT.TED.$set.$sl-$tl.$sl.xml $systemName > $BASEDIR/tmp/eval.manual/$set.xml
 
 
 

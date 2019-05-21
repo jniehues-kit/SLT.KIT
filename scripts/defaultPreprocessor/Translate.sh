@@ -35,13 +35,18 @@ elif [ -f $BASEDIR/data/orig/eval/$set/$set.$sl ]; then
 fi
 
 xmlcommand=""
-if [ xml == 1 ]; then
-   xmlcommand='grep "<seg id" | sed -e "s/<[^>]*>//g" |'
-fi
-cat $inFile | $xmlcommand\
+if [ $xml -eq 1 ]; then
+
+ cat $inFile | grep "<seg id" | sed -e "s/<[^>]*>//g" | \
+    perl $MOSESDIR/scripts/tokenizer/tokenizer.perl -l ${sl} | \
+    $MOSESDIR/scripts/recaser/truecase.perl --model $BASEDIR/model/${name}/truecase-model.s | \
+    $BPEDIR/apply_bpe.py -c $BASEDIR/model/${name}/codec --vocabulary $BASEDIR/model/${name}/voc.s --vocabulary-threshold 50 \
+				  > $BASEDIR/data/${name}/eval/manualTranscript.$set.s
+else
+cat $inFile | \
     perl $MOSESDIR/scripts/tokenizer/tokenizer.perl -l ${sl} | \
     $MOSESDIR/scripts/recaser/truecase.perl --model $BASEDIR/model/${name}/truecase-model.s | \
     $BPEDIR/apply_bpe.py -c $BASEDIR/model/${name}/codec --vocabulary $BASEDIR/model/${name}/voc.s --vocabulary-threshold 50 \
 				  > $BASEDIR/data/${name}/eval/manualTranscript.$set.s
 
-
+fi

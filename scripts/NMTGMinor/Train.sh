@@ -27,7 +27,7 @@ if [ $GPU == -1 ]; then
     gpu_string_avg=""
 else
     gpu_string_train="-gpus "$GPU
-    gpu_string_avg="-gpus "$GPU
+    gpu_string_avg="-gpu "$GPU
 fi
 
 if [ ! -z "$FP16" ]; then
