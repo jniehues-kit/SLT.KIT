@@ -5,19 +5,24 @@ if (( $# != 1 )); then
   exit
 fi
 
+if [ -z "$SLTKITDIR" ]; then
+    SLTKITDIR=/opt/SLT.KIT
+fi
+
+
 set=$1
 
 export systemName=ctc-tedlium2.smallTED
 
 
-/opt/SLT.KIT/systems/ctc-tedlium2/Test.sh $set
+$SLTKITDIR/systems/ctc-tedlium2/Test.sh $set
 
 
 #Add puncuation
-/opt/SLT.KIT/scripts/monoTranslationData/TestASROutput.sh $set ctc monoTransPrepro monTrans
+$SLTKITDIR/scripts/monoTranslationData/TestASROutput.sh $set ctc monoTransPrepro monTrans
 
 #Translate
-/opt/SLT.KIT/scripts/openNMT-py/Translate.sh ctc.$set monoTransPrepro mt
+$SLTKITDIR/scripts/openNMT-py/Translate.sh ctc.$set monoTransPrepro mt
 
 #Eval
-/opt/SLT.KIT/scripts/evaluate/Eval.sh ctc.$set mt $set
+$SLTKITDIR/scripts/evaluate/Eval.sh ctc.$set mt $set

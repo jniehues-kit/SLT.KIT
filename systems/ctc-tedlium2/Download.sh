@@ -1,7 +1,12 @@
 #!/bin/bash
 
-mkdir -p /model/ctc
-cd /model/ctc
+
+if [ -z "$BASEDIR" ]; then
+    BASEDIR=/
+fi
+
+mkdir -p $BASEDIR/model/ctc
+cd $BASEDIR/model/ctc
 
 for bpe_steps in "300" "10000";
 do
