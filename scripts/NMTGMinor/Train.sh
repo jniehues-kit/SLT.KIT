@@ -22,7 +22,7 @@ if [ -z "$GPU" ]; then
     GPU=0
 fi
 
-if [ $GPU == -1 ]; then
+if [ $GPU -eq -1 ]; then
     gpu_string_train=""
     gpu_string_avg=""
 else
@@ -104,4 +104,4 @@ python3 -u $NMTDIR/average_checkpoints.py $gpu_string_avg \
                                     -models $checkpoints \
                                     -output $BASEDIR/model/${name}/model.pt
 
-rm -r /tmp/${name}/
+rm -r $BASEDIR/tmp/${name}/

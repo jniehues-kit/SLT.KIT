@@ -57,7 +57,7 @@ do
   sed -i "s/ '/'/g" ${CTC_OUTPUT}/${set}-${BPE_SIZE}.s
 
   mkdir -p ${CTC_OUTPUT}/${set}
-  $SLTKITDIR/scripts/evaluate/Eval.asr.sh $set ${CTC_OUTPUT}/${set}.s ${CTC_OUTPUT}/${set}
+  $SLTKITDIR/scripts/evaluate/Eval.asr.sh $set ${CTC_OUTPUT}/${set}-${BPE_SIZE}.s ${CTC_OUTPUT}/${set}
 done
 
 ln -s ${CTC_OUTPUT}/${set}-${BEST_SIZE}.s ${CTC_OUTPUT}/${set}.s
