@@ -8,7 +8,7 @@ if [ $# -ne 2 ]; then
     size=$3
 fi
 layer=8
-innersize=$((layer*4))
+innersize=$((size*4))
 
 if [ -z "$BASEDIR" ]; then
     BASEDIR=/
