@@ -3,9 +3,11 @@
 input=$1
 name=$2
 
+language=$3
+
 size=512
-if [ $# -ne 2 ]; then
-    size=$3
+if [ $# -ne 3 ]; then
+    size=$4
 fi
 innersize=$((size*4))
 
@@ -13,9 +15,14 @@ if [ -z $LAYER ]; then
     LAYER=8
 fi
 
+if [ -z $ENC_LAYER ]; then
+    ENC_LAYER=$LAYER
+fi
+
 if [ -z $TRANSFORMER ]; then
     TRANSFORMER=transformer
 fi
+
 
 if [ -z "$BASEDIR" ]; then
     BASEDIR=/
@@ -48,36 +55,43 @@ mkdir -p $BASEDIR/model/${name}/checkpoints/
 
 
 
-for l in s t
+for l in scp $language
 do
     for set in train valid
     do
-	echo -n "" > $BASEDIR/tmp/${name}/$set.$l
-	for f in $BASEDIR/data/${input}/${set}/*\.${l}
-	do
-    
-		 cat $f >> $BASEDIR/tmp/${name}/$set.$l
-	done
-   done
+       echo -n "" > $BASEDIR/tmp/${name}/$set.$l
+       for f in $BASEDIR/data/${input}/${set}/*\.${l}
+       do
+	   
+ 	   cat $f >> $BASEDIR/tmp/${name}/$set.$l
+       done
+    done
 done
 
 python3 $NMTDIR/preprocess.py \
-       -train_src $BASEDIR/tmp/${name}/train.s \
-       -train_tgt $BASEDIR/tmp/${name}/train.t \
-       -valid_src $BASEDIR/tmp/${name}/valid.s \
-       -valid_tgt $BASEDIR/tmp/${name}/valid.t \
-       -save_data $BASEDIR/model/${name}/train -format bin
+        -train_src $BASEDIR/tmp/${name}/train.scp \
+        -train_tgt $BASEDIR/tmp/${name}/train.$language \
+       -valid_src $BASEDIR/tmp/${name}/valid.scp \
+       -valid_tgt $BASEDIR/tmp/${name}/valid.$language \
+       -src_seq_length 1024 \
+       -tgt_seq_length 512 \
+       -concat 4 -asr -src_type audio\
+       -asr_format scp\
+       -save_data $BASEDIR/model/${name}/train
 
-
-python3 -u $NMTDIR/train.py  -data $BASEDIR/model/${name}/train -data_format bin \
+python3 -u $NMTDIR/train.py  -data $BASEDIR/model/${name}/train -data_format raw \
        -save_model $BASEDIR/model/${name}/checkpoints/model \
        -model $TRANSFORMER \
-       -batch_size_words 3584 \
+       -batch_size_words 2048 \
        -batch_size_update 24568 \
        -batch_size_sents 9999 \
        -batch_size_multiplier 8 \
+       -encoder_type audio \
        -checkpointing 0 \
+       -input_size 172 \
        -layers $LAYER \
+       -encoder_layer $ENC_LAYER \
+       -death_rate 0.5 \
        -model_size $size \
        -inner_size $innersize \
        -n_heads 8 \
@@ -97,6 +111,7 @@ python3 -u $NMTDIR/train.py  -data $BASEDIR/model/${name}/train -data_format bin
        -seed 8877 \
        -log_interval 1000 \
        $gpu_string_train &> $BASEDIR/model/${name}/train.log
+
 
 checkpoints=""
 
