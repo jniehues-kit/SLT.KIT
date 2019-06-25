@@ -1,15 +1,24 @@
 From slt.kit-server
 
 #PyTorch
-RUN apt-get install -y libyaml-dev python3-pip && \
-    pip3 install https://download.pytorch.org/whl/cpu/torch-1.1.0-cp36-cp36m-linux_x86_64.whl && \
-    pip3 install torchvision && \
-    pip3 install -U numpy && \
-    pip3 install -U nltk && pip3 install h5py
+RUN apt-get install python3.7 -y
+RUN apt-get install vim -y
+RUN apt-get install -y python3-pip python3.7-dev build-essential libyaml-dev
+RUN python3.7 -m pip install --upgrade pip
+RUN python3.7 --version
+RUN pip --version
+RUN python3.7 -c 'import struct;print(struct.calcsize("P") * 8)'
+#RUN python3.7 -m pip install https://download.pytorch.org/whl/cpu/torch-1.0.1-cp37-cp37m-win_amd64.whl && \
+RUN python3.7 -m pip install torch==1.0.1 -f https://download.pytorch.org/whl/cpu/stable && \
+    python3.7 -m pip install torchvision && \
+    python3.7 -m pip install -U numpy && \
+    python3.7 -m pip install nltk && \ 
+    python3.7 -m pip install h5py 
 
-#OPENNMT
+#NMTGMinor
 RUN mkdir -p /opt/lib && \
     cd /opt/lib && \
-    git clone https://github.com/quanpn90/NMTGMinor && cd NMTGMinor && git checkout audio-encoder
+    git clone --single-branch --branch LTTransformer https://github.com/quanpn90/NMTGMinor 
+    #git clone https://github.com/quanpn90/NMTGMinor 
 
 CMD /opt/SLT.KIT/src/server/RUN.sh
