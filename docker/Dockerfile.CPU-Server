@@ -11,13 +11,13 @@ RUN cd /opt && \
     git clone https://github.com/moses-smt/mosesdecoder.git && \
     sed -i 's/my $sentence_start = 1;/my $sentence_start = 1;\n$|++;/g' /opt/mosesdecoder/scripts/recaser/truecase.perl
 
-RUN cd /opt/ && git clone https://github.com/google/sentencepiece.git && apt-get install -y pkg-config libgoogle-perftools-dev cmake&& \
-    cd /opt/sentencepiece && mkdir build && \
-    cd build && \
-    cmake .. && \
-    make -j 16 && \
-    make install && \
-    ldconfig -v
+#RUN cd /opt/ && git clone https://github.com/google/sentencepiece.git && apt-get install -y pkg-config libgoogle-perftools-dev cmake&& \
+#    cd /opt/sentencepiece && mkdir build && \
+#    cd build && \
+#    cmake .. && \
+#    make -j 16 && \
+#    make install && \
+#    ldconfig -v
 
 RUN cd /opt && \
     git clone https://github.com/rsennrich/subword-nmt.git

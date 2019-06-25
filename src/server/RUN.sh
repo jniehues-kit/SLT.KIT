@@ -1,7 +1,7 @@
 #!/bin/bash
 
 export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/usr/local/lib/:/opt/pv-platform-sample-connector//Linux/lib64/:/opt/lib/cnn/build/lib/:/opt/lib/lamtram/build/lib/
-export PYTHONPATH=/opt/lib/OpenNMT-py/:/opt/subword-nmt/:/usr/local/lib/python
+export PYTHONPATH=/opt/lib/NMTGMinor/:/opt/lib/OpenNMT-py/:/opt/subword-nmt/:/usr/local/lib/python
 
 
 echo $THREADS
