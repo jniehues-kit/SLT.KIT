@@ -1,7 +1,7 @@
 general:
-    labels: /model/ctc/units10000.json
-    logfile: /model/ctc/bpe10000.log
-    final_dump: /model/ctc/bpe10000.mdl
+    labels: #BASEDIR#/model/ctc/units10000.json
+    logfile: #BASEDIR#/model/ctc/bpe10000.log
+    final_dump: #BASEDIR#/model/ctc/bpe10000.mdl
     epochs: 50
     learning_rate: 0.0005
     momentum: 0.9
@@ -23,14 +23,14 @@ data:
     train:
         data_set: data_loader.iwslt_data_loader.SequenceDataset
         data_loader: data_loader.iwslt_data_loader.AudioDataLoader
-        audio_features: /data/tedlium2-xnmt/feat/train.h5
-        input_text: /data/tedlium2-xnmt/bpe10000/train.units
+        audio_features: #BASEDIR#/data/tedlium2-xnmt/feat/train.h5
+        input_text: #BASEDIR#/data/tedlium2-xnmt/bpe10000/train.units
         shuffle: True
     valid:
         data_set: data_loader.iwslt_data_loader.SequenceDataset
         data_loader: data_loader.iwslt_data_loader.AudioDataLoader
-        audio_features: /data/tedlium2-xnmt/feat/dev.h5
-        input_text: /data/tedlium2-xnmt/bpe10000/dev.units
+        audio_features: #BASEDIR#/data/tedlium2-xnmt/feat/dev.h5
+        input_text: #BASEDIR#/data/tedlium2-xnmt/bpe10000/dev.units
         start_idx: 1
 
 # Define the model and the parameters

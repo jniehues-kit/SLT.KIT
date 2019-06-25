@@ -32,7 +32,7 @@ RUN cd /opt && wget https://www-i6.informatik.rwth-aachen.de/web/Software/mwerSe
 
 # Speaker Diarization
 RUN cd /opt && \
-    wget http://lium3.univ-lemans.fr/diarization/lib/exe/fetch.php/lium_spkdiarization-8.4.1.jar.gz && \
+    wget --no-check-certificate https://git-lium.univ-lemans.fr/Meignier/lium-spkdiarization/raw/660f866a9b80442d721c3454c9e59b3b62d8eab9/jar/lium_spkdiarization-8.4.1.jar.gz && \
     gunzip lium_spkdiarization-8.4.1.jar.gz
 
 # Anaconda
@@ -58,7 +58,7 @@ RUN cd /opt && \
     git clone https://github.com/markus-m-u-e-l-l-e-r/CTC.ISL && cd CTC.ISL && /root/anaconda3/bin/pip install -r requirements.txt
 ## warp-ctc and pytorch binding
 RUN cd /opt && \
-    git clone https://github.com/SeanNaren/warp-ctc/
+    git clone https://github.com/SeanNaren/warp-ctc/ && cd /opt/warp-ctc && git reset --hard 8cdd6e57913e8f54d620cc8d07069c76167e7daa
 RUN mkdir /opt/warp-ctc/build && cd /opt/warp-ctc/build && cmake .. && make
 RUN export CUDA_HOME="/usr/local/cuda" && cd /opt/warp-ctc/pytorch_binding && /root/anaconda3/bin/python setup.py install
 

@@ -65,6 +65,7 @@ void MediatorConnection::start() {
 
         while ( 1 ) {
           MCloudPacket *p = NULL;
+          char *sessionID = NULL;
           int proceed = 1;
 
           //reset everything;
@@ -80,6 +81,10 @@ void MediatorConnection::start() {
           while ( proceed && (p = mcloudGetNextPacket (cloudP)) != NULL ) {
             switch (p->packetType) {
             case MCloudData:
+              if (sessionID == NULL || strcmp(sessionID, p->sessionID) != 0) {
+                fprintf (stderr, "INFO connected to session %s", p->sessionID);
+                sessionID = p->sessionID;
+              }
               mcloudProcessDataAsync (cloudP, p, this);
               break;
             case MCloudDone:

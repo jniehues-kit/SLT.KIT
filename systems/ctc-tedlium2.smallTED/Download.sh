@@ -1,4 +1,8 @@
 #!/bin/bash
 
-/opt/SLT.KIT/systems/smallTED/Download.sh
-/opt/SLT.KIT/systems/ctc-tedlium2/Download.sh
+if [ -z "$SLTKITDIR" ]; then
+    SLTKITDIR=/opt/SLT.KIT
+fi
+
+$SLTKITDIR/systems/smallTED/Download.sh
+$SLTKITDIR/systems/ctc-tedlium2/Download.sh
