@@ -82,7 +82,7 @@ void MediatorConnection::start() {
             switch (p->packetType) {
             case MCloudData:
               if (sessionID == NULL || strcmp(sessionID, p->sessionID) != 0) {
-                fprintf (stderr, "INFO connected to session %s", p->sessionID);
+                fprintf (stderr, "INFO connected to session %s\n", p->sessionID);
                 sessionID = p->sessionID;
               }
               mcloudProcessDataAsync (cloudP, p, this);
